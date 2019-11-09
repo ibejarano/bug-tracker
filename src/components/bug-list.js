@@ -1,7 +1,7 @@
 import React from 'react';
 import '../style/bug-table.css';
 import axios from 'axios';
-
+import { Link } from 'react-router-dom';
 
 class BugList extends React.Component{
 
@@ -22,7 +22,7 @@ class BugList extends React.Component{
     };
 
     render(){
-        
+
     const bugRows = this.state.bugList.map((bugRow, idx)=>{
         return(
             <tr key={idx}>
@@ -34,6 +34,7 @@ class BugList extends React.Component{
                 <td> {bugRow.createdAt} </td>
                 <td> {bugRow.updatedAt} </td>
                 <td> {bugRow.shortDescription} </td>
+                <td> <Link to={`/update/:${bugRow._id}`} > Edit </Link>  </td>
             </tr>
         );
     });
@@ -50,6 +51,7 @@ class BugList extends React.Component{
                     <th>Creation date</th>
                     <th>Last Update</th>
                     <th>Description</th>
+                    <th>Edit</th>
                 </tr>
             </thead>
             <tbody>
