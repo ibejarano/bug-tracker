@@ -1,19 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 
-function createOptionTags(opt){
+function createOptionTags(opt, idx){
     return(
-        <option value={opt}> {opt} </option>
+        <option key={idx} value={opt}> {opt} </option>
     )
-}
-
-function isValidField(text){
-    if(text === 'Seleccione...'){
-        return false
-    }
-    else{
-        return true
-    }
 }
 
 class ReportBugForm extends React.Component {
@@ -26,6 +17,14 @@ class ReportBugForm extends React.Component {
             resolution: '',
             shortDescription: ''
         }
+    }
+
+    componentDidMount(){
+        this.setState({
+            severity: 'Terminal'
+        })
+        // const severity = document.getElementById('select-severity');
+        // severity.value = 'Risky'
     }
 
     onSeverityChange(e){
@@ -81,27 +80,43 @@ class ReportBugForm extends React.Component {
     const selectState = stateOptions.map( createOptionTags )
     const selectResolution = resolutionOptions.map( createOptionTags )
 
-    const defaultSelection = <option value='' selected disabled >Seleccione ...</option>
+    const defaultSelection = <option value='' disabled >Seleccione ...</option>
 
     return(
-        <form classMame='form-container' onSubmit={this.onSubmit.bind(this)} >
-            <select name='severity' onChange={this.onSeverityChange.bind(this)} required>
+        <form className='form-container' onSubmit={this.onSubmit.bind(this)} >
+            <select id='select-severity' 
+            value={this.state.severity} 
+            name='severity' 
+            onChange={this.onSeverityChange.bind(this)} 
+            required>
                 {defaultSelection}
                 {selectSeverity}
             </select>
-            <select name='priority' onChange={this.onPriorityChange.bind(this)} required>
+            <select id='select-priority' 
+            value={this.state.priority} 
+            name='priority' 
+            onChange={this.onPriorityChange.bind(this)} 
+            required>
                 {defaultSelection}
                 {selectPriority}
             </select>
-            <select name='state' onChange={this.onStateChange.bind(this)} required>
+            <select id='select-state' 
+            value={this.state.state} 
+            name='state' 
+            onChange={this.onStateChange.bind(this)} 
+            required>
                 {defaultSelection}
                 {selectState}
             </select>
-            <select name='resolution' onChange={this.onResolutionChange.bind(this)} required>
+            <select id='select-resolution' 
+            value={this.state.resolution} 
+            name='resolution' 
+            onChange={this.onResolutionChange.bind(this)} 
+            required>
                 {defaultSelection}
                 {selectResolution}
             </select>
-            <input name='shortDescription' type='text' placeholder='Description'
+            <input id='input-description'  name='shortDescription' type='text' placeholder='Description'
                 onChange={this.onDescriptionChange.bind(this) }
                 value={this.state.shortDescription} required
             />
