@@ -6,7 +6,20 @@ function createOptionTags(opt){
     )
 }
 
-export default function ReportBugForm({onSubmit}){
+
+class ReportBugForm extends React.Component {
+    constructor(props){
+        super(props);
+        this.state ={
+            placehold: []
+        }
+    }
+
+    onSubmit(e){
+        console.log(e.target)
+    }
+
+    render(){
     const severityOptions = ['Risky', 'Unhandled', 'Terminal'];
     const priorityOptions = ['Low', 'Medium' ,'High', 'Urgent!'];
     const stateOptions = ['Open', 'Closed', 'Paused'];
@@ -18,7 +31,7 @@ export default function ReportBugForm({onSubmit}){
     const selectResolution = resolutionOptions.map( createOptionTags )
 
     return(
-        <form classMame='form-container' action='http://localhost:5000/bugs/add' method='post' onSubmit={onSubmit} >
+        <form classMame='form-container' action='http://localhost:5000/bugs/add' method='post' onSubmit={this.onSubmit} >
             <select name='severity' >
                 {selectSeverity}
             </select>
@@ -34,5 +47,7 @@ export default function ReportBugForm({onSubmit}){
             <input name='shortDescription' type='text' placeholder='Description'/>
             <button type='submit'>Submit new bug</button>
         </form>
-    )
-}
+    )}
+};
+
+export default ReportBugForm;

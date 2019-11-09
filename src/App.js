@@ -1,46 +1,29 @@
 import React from 'react';
 import './App.css';
-import axios from 'axios';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 // Components
 import BugList from './components/bug-list';
 import ReportBugForm from './components/report-bug-form';
 
 
-class App extends React.Component {
-
-  constructor(props){
-    super(props);
-    this.state = {
-      bugList: []
-    }
-  }
-
-  componentDidMount(){
-    axios.get('http://localhost:5000/bugs')
-    .then((res) => this.setState({
-      bugList: res.data
-    })
-    )
-    .catch(err => console.log('There is an error', err))
-  }
-
-  onSubmit(e){
-    console.log(e.target.body)
-  }
-
-  render() {
+export default function App() {
 
     return (
       <div className="App">
       <header className="App-header">
           Welcome to my bug Tracker App!
+          <nav>
+            <ul>
+              <li><a href='/'>Home</a></li>
+              <li><a href='/add'>Add new Bug</a></li>
+            </ul>
+          </nav>
       </header>
-      <BugList list={this.state.bugList} />
-      <ReportBugForm onSubmit={this.onSubmit.bind(this)} />
+      <Router >
+      <Route path='/' exact component={BugList} />
+      <Route path='/add' component={ReportBugForm} />
+      </Router>
     </div>
     );
-  }
 }
-
-export default App;

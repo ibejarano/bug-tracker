@@ -1,9 +1,29 @@
 import React from 'react';
 import '../style/bug-table.css';
+import axios from 'axios';
 
-export default function BugList({list}){
 
-    const bugRows = list.map((bugRow, idx)=>{
+class BugList extends React.Component{
+
+    constructor(props){
+        super(props);
+        this.state = {
+            bugList: []
+        }
+    }
+
+    componentDidMount(){
+        axios.get('http://localhost:5000/bugs')
+        .then((res) => this.setState({
+          bugList: res.data
+        })
+        )
+        .catch(err => console.log('There is an error', err))
+    };
+
+    render(){
+        
+    const bugRows = this.state.bugList.map((bugRow, idx)=>{
         return(
             <tr key={idx}>
                 <td> {bugRow._id} </td>
@@ -15,8 +35,8 @@ export default function BugList({list}){
                 <td> {bugRow.updatedAt} </td>
                 <td> {bugRow.shortDescription} </td>
             </tr>
-        )
-    })
+        );
+    });
 
     return(
         <table className="bug-table">
@@ -37,4 +57,7 @@ export default function BugList({list}){
             </tbody>
         </table>
     );
+    }
 };
+
+export default BugList;
