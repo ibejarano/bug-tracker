@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 function createOptionTags(opt){
     return(
@@ -6,18 +7,68 @@ function createOptionTags(opt){
     )
 }
 
+function isValidField(text){
+    if(text === 'Seleccione...'){
+        return false
+    }
+    else{
+        return true
+    }
+}
 
 class ReportBugForm extends React.Component {
     constructor(props){
         super(props);
-        this.state ={
-            placehold: []
+        this.state = {
+            severity: '',
+            priority: '',
+            state: '',
+            resolution: '',
+            shortDescription: ''
         }
     }
 
-    onSubmit(e){
-        console.log(e.target)
+    onSeverityChange(e){
+        this.setState({
+            severity: e.target.value
+        });
     }
+
+    onPriorityChange(e){
+        this.setState({
+            priority: e.target.value
+        })
+    }
+
+    onStateChange(e){
+        this.setState({
+            state: e.target.value
+        })
+    };
+
+    onResolutionChange(e){
+        this.setState({
+            resolution: e.target.value
+        })
+    }
+
+    onDescriptionChange(e){
+        this.setState({
+            shortDescription: e.target.value
+        })
+    }
+
+    onSubmit(e){
+        e.preventDefault();
+
+        const params = {...this.state}
+
+        console.log(params)
+
+        axios.post('http://localhost:5000/bugs/add', params)
+            .then((res) => console.log(res))
+            .catch(err => console.log(err))
+    };
 
     render(){
     const severityOptions = ['Risky', 'Unhandled', 'Terminal'];
@@ -30,21 +81,30 @@ class ReportBugForm extends React.Component {
     const selectState = stateOptions.map( createOptionTags )
     const selectResolution = resolutionOptions.map( createOptionTags )
 
+    const defaultSelection = <option value='' selected disabled >Seleccione ...</option>
+
     return(
-        <form classMame='form-container' action='http://localhost:5000/bugs/add' method='post' onSubmit={this.onSubmit} >
-            <select name='severity' >
+        <form classMame='form-container' onSubmit={this.onSubmit.bind(this)} >
+            <select name='severity' onChange={this.onSeverityChange.bind(this)} required>
+                {defaultSelection}
                 {selectSeverity}
             </select>
-            <select name='priority' required >
+            <select name='priority' onChange={this.onPriorityChange.bind(this)} required>
+                {defaultSelection}
                 {selectPriority}
             </select>
-            <select name='state' >
+            <select name='state' onChange={this.onStateChange.bind(this)} required>
+                {defaultSelection}
                 {selectState}
             </select>
-            <select name='resolution' >
+            <select name='resolution' onChange={this.onResolutionChange.bind(this)} required>
+                {defaultSelection}
                 {selectResolution}
             </select>
-            <input name='shortDescription' type='text' placeholder='Description'/>
+            <input name='shortDescription' type='text' placeholder='Description'
+                onChange={this.onDescriptionChange.bind(this) }
+                value={this.state.shortDescription} required
+            />
             <button type='submit'>Submit new bug</button>
         </form>
     )}
