@@ -1,7 +1,11 @@
 import React from 'react';
 import './App.css';
-import BugList from './components/bug-list';
 import axios from 'axios';
+
+// Components
+import BugList from './components/bug-list';
+import ReportBugForm from './components/report-bug-form';
+
 
 class App extends React.Component {
 
@@ -21,6 +25,10 @@ class App extends React.Component {
     .catch(err => console.log('There is an error', err))
   }
 
+  onSubmit(e){
+    console.log(e.target.body)
+  }
+
   render() {
 
     return (
@@ -29,6 +37,7 @@ class App extends React.Component {
           Welcome to my bug Tracker App!
       </header>
       <BugList list={this.state.bugList} />
+      <ReportBugForm onSubmit={this.onSubmit.bind(this)} />
     </div>
     );
   }
