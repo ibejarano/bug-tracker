@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 // Components
 import BugList from './components/bug-list';
 import ReportBugForm from './components/report-bug-form';
-import EdifBugForm from './components/edit-bug';
+import EdifBugForm from './components/edit-bug-form';
 
 export default function App() {
 

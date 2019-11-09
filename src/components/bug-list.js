@@ -34,7 +34,7 @@ class BugList extends React.Component{
                 <td> {bugRow.createdAt} </td>
                 <td> {bugRow.updatedAt} </td>
                 <td> {bugRow.shortDescription} </td>
-                <td> <Link to={`/update/:${bugRow._id}`} > Edit </Link>  </td>
+                <td> <Link to={`/update/${bugRow._id}`} > Edit </Link>  </td>
             </tr>
         );
     });

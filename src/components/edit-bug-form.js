@@ -11,12 +11,27 @@ class ReportBugForm extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            _id: props.match.params.id,
             severity: '',
             priority: '',
             state: '',
             resolution: '',
             shortDescription: ''
         }
+    }
+
+    componentDidMount(){
+        axios.get(`http://localhost:5000/bugs/update/${this.state._id}`)
+        .then(res => {
+                this.setState({
+                priority: res.data.priority,
+                severity: res.data.severity,
+                state: res.data.state,
+                resolution: res.data.resolution,
+                shortDescription: res.data.shortDescription
+            })
+        })
+        .catch(err => console.log('Error get :( ' + err))
     }
 
     onSeverityChange(e){
@@ -54,9 +69,7 @@ class ReportBugForm extends React.Component {
 
         const params = {...this.state}
 
-        console.log(params)
-
-        axios.post('http://localhost:5000/bugs/add', params)
+        axios.put(`http://localhost:5000/bugs/update/${this.state._id}`, params)
             .then((res) => console.log(res))
             .catch(err => console.log(err))
     };
