@@ -24,15 +24,18 @@ class BugList extends React.Component{
     render(){
 
     const bugRows = this.state.bugList.map((bugRow, idx)=>{
+        let createdDateParse = new Date( Date.parse(bugRow.createdAt))
+        let updatedDateParse = new Date( Date.parse(bugRow.updatedAt))
+
         return(
             <tr key={idx}>
-                <td> {bugRow._id} </td>
+                <td> {bugRow._id.slice(-6) } </td>
                 <td> {bugRow.severity} </td>
                 <td> {bugRow.priority} </td>
                 <td> {bugRow.state} </td>
                 <td> {bugRow.resolution} </td>
-                <td> {bugRow.createdAt} </td>
-                <td> {bugRow.updatedAt} </td>
+                <td> {createdDateParse.toLocaleString()} </td>
+                <td> {updatedDateParse.toLocaleString()} </td>
                 <td> {bugRow.shortDescription} </td>
                 <td> <Link to={`/update/${bugRow._id}`} > Edit </Link>  </td>
             </tr>
