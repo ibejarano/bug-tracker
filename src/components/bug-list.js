@@ -12,14 +12,25 @@ class BugList extends React.Component{
         }
     }
 
-    componentDidMount(){
+    refreshBugList(){
         axios.get('http://localhost:5000/bugs')
         .then((res) => this.setState({
           bugList: res.data
         })
         )
         .catch(err => console.log('There is an error', err))
+    }
+
+    componentDidMount(){
+        this.refreshBugList();
     };
+
+    deleteBug(id){
+        axios.delete(`http://localhost:5000/bugs/${id}`)
+            .then(res => console.log(res.data))
+            .then(()=> window.location-'/')
+            .catch(err => console.log('Error ocurred!',err))
+    }
 
     render(){
 
@@ -38,6 +49,7 @@ class BugList extends React.Component{
                 <td> {updatedDateParse.toLocaleString()} </td>
                 <td> {bugRow.shortDescription} </td>
                 <td> <Link to={`/update/${bugRow._id}`} > Edit </Link>  </td>
+                <td><button onClick={(props)=>{this.deleteBug(bugRow._id)}} >Delete</button></td>
             </tr>
         );
     });
@@ -55,6 +67,7 @@ class BugList extends React.Component{
                     <th>Last Update</th>
                     <th>Description</th>
                     <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
