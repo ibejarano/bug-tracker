@@ -1,0 +1,79 @@
+
+import React from 'react';
+import axios from 'axios';
+
+class UserRegisterForm extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            username: '',
+            email: '',
+            password: '',
+            passwordConf: '',
+            isAdmin: false,
+            isDev: false,
+        }
+    }
+
+    onUsernameChange(e){
+        this.setState({
+            username: e.target.value
+        });
+    }
+
+    onEmailChange(e){
+        this.setState({
+            email: e.target.value
+        })
+    }
+
+    onPasswordChange(e){
+        this.setState({
+            password: e.target.value,
+        })
+    };
+
+    onPasswordConfirmChange(e){
+        this.setState({
+            passwordConf: e.target.value
+        })
+    };
+
+    onSubmit(e){
+        e.preventDefault();
+
+        const params = {...this.state}
+
+        console.log(params)
+
+        axios.post('http://localhost:5000/user/register', params)
+            .then((res) => console.log(res))
+            .catch(err => console.log(err))
+    };
+
+    render(){
+
+    return(
+        <form className='form-container' onSubmit={this.onSubmit.bind(this)} >
+            <input  name='username' type='text' placeholder='User Name'
+                onChange={this.onUsernameChange.bind(this) }
+                value={this.state.username} required
+            />
+            <input  name='email' type='email' placeholder='Email'
+                onChange={this.onEmailChange.bind(this) }
+                value={this.state.email} required
+            />
+            <input  name='password' type='password' placeholder='Password'
+                onChange={this.onPasswordChange.bind(this) }
+                value={this.state.password} required
+            />
+            <input  name='passwordConf' type='password' placeholder='Password Confirmation'
+                onChange={this.onPasswordConfirmChange.bind(this) }
+                value={this.state.passwordConf} required
+            />
+            <button type='submit'>Submit new user</button>
+        </form>
+    )}
+};
+
+export default UserRegisterForm;

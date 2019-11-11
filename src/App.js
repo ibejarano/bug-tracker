@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import BugList from './components/bug-list';
 import ReportBugForm from './components/report-bug-form';
 import EdifBugForm from './components/edit-bug-form';
+import UserRegisterForm from './components/user-register-form';
+import UserLogin from './components/user-login';
 
 export default function App() {
 
@@ -17,6 +19,9 @@ export default function App() {
             <ul>
               <li><a href='/'>Home</a></li>
               <li><a href='/add'>Add new Bug</a></li>
+              <li><a href='/signup'>Sign Up</a></li>
+              <li><a href='/login'>Login</a></li>
+
             </ul>
           </nav>
       </header>
@@ -24,6 +29,8 @@ export default function App() {
         <Route path='/' exact component={BugList} />
         <Route path='/add' component={ReportBugForm} />
         <Route path='/update/:id' component={EdifBugForm}/>
+        <Route path='/signup' component={UserRegisterForm} />
+        <Route path='/login' component={UserLogin} />
       </Router>
     </div>
     );
