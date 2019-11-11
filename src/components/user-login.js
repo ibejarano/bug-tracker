@@ -38,17 +38,23 @@ class UserLogin extends React.Component {
     render(){
 
     return(
-        <form className='form-container' onSubmit={this.onSubmit.bind(this)} >
-            <input  name='email' type='email' placeholder='Email'
-                onChange={this.onEmailChange.bind(this) }
-                value={this.state.email} required
-            />
-            <input  name='password' type='password' placeholder='Password'
-                onChange={this.onPasswordChange.bind(this) }
-                value={this.state.password} required
-            />
-            <button type='submit'>Login</button>
-        </form>
+        <div>
+            <h1>Login</h1>
+            <form className='form-container' onSubmit={this.onSubmit.bind(this)} >
+                <label>Email: </label>
+                <input  name='email' type='email' placeholder='Email'
+                    onChange={this.onEmailChange.bind(this) }
+                    value={this.state.email} required
+                /><br/>
+                <label>Password: </label>
+                <input  name='password' type='password' placeholder='Password'
+                    onChange={this.onPasswordChange.bind(this) }
+                    value={this.state.password} required
+                /><br/>
+                <button type='submit'>Login</button>
+            </form>
+        </div>
+
     )}
 };
 

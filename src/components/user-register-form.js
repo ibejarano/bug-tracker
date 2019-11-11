@@ -54,25 +54,32 @@ class UserRegisterForm extends React.Component {
     render(){
 
     return(
-        <form className='form-container' onSubmit={this.onSubmit.bind(this)} >
-            <input  name='username' type='text' placeholder='User Name'
-                onChange={this.onUsernameChange.bind(this) }
-                value={this.state.username} required
-            />
-            <input  name='email' type='email' placeholder='Email'
-                onChange={this.onEmailChange.bind(this) }
-                value={this.state.email} required
-            />
-            <input  name='password' type='password' placeholder='Password'
-                onChange={this.onPasswordChange.bind(this) }
-                value={this.state.password} required
-            />
-            <input  name='passwordConf' type='password' placeholder='Password Confirmation'
-                onChange={this.onPasswordConfirmChange.bind(this) }
-                value={this.state.passwordConf} required
-            />
-            <button type='submit'>Submit new user</button>
-        </form>
+        <div>
+            <h1>Sign up</h1>
+            <form className='form-container' onSubmit={this.onSubmit.bind(this)} >
+                <label>User name: </label>
+                <input  name='username' type='text' placeholder='User Name'
+                    onChange={this.onUsernameChange.bind(this) }
+                    value={this.state.username} required
+                /><br/>
+                <label>E-mail: </label>
+                <input  name='email' type='email' placeholder='Email'
+                    onChange={this.onEmailChange.bind(this) }
+                    value={this.state.email} required
+                /><br/>
+                <label>Password: </label>
+                <input  name='password' type='password' placeholder='Password'
+                    onChange={this.onPasswordChange.bind(this) }
+                    value={this.state.password} required
+                /><br/>
+                <label>Repeat password: </label>
+                <input  name='passwordConf' type='password' placeholder='Password Confirmation'
+                    onChange={this.onPasswordConfirmChange.bind(this) }
+                    value={this.state.passwordConf} required
+                /><br/>
+                <button type='submit'>Sign up</button>
+            </form>
+        </div>
     )}
 };
 
