@@ -31,7 +31,11 @@ class UserLogin extends React.Component {
         console.log(params)
 
         axios.post('http://localhost:5000/user/login', params)
-            .then((res) => console.log(res))
+            .then((res) =>{ console.log(res)
+            localStorage.setItem('user', res)
+            console.log(localStorage)
+            }
+            )
             .catch(err => console.log(err))
     };
 

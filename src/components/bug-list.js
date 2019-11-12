@@ -13,7 +13,11 @@ class BugList extends React.Component{
     }
 
     refreshBugList(){
-        axios.get('http://localhost:5000/bugs')
+        axios.get('http://localhost:5000/bugs', {
+            headers: {
+                Authorization: 'User '+ localStorage.user
+            }
+        })
         .then((res) => this.setState({
           bugList: res.data
         })
@@ -53,6 +57,8 @@ class BugList extends React.Component{
             </tr>
         );
     });
+
+    console.log(localStorage)
 
     return(
         <table className="bug-table">
