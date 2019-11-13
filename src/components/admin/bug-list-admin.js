@@ -3,7 +3,7 @@ import '../style/bug-table.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-class BugList extends React.Component{
+class BugListAdmin extends React.Component{
 
     constructor(props){
         super(props);
@@ -52,6 +52,8 @@ class BugList extends React.Component{
                 <td> {createdDateParse.toLocaleString()} </td>
                 <td> {updatedDateParse.toLocaleString()} </td>
                 <td> {bugRow.shortDescription} </td>
+                <td> <Link to={`/update/${bugRow._id}`} > Edit </Link>  </td>
+                <td><button onClick={(props)=>{this.deleteBug(bugRow._id)}} >Delete</button></td>
             </tr>
         );
     });
@@ -70,6 +72,8 @@ class BugList extends React.Component{
                     <th>Creation date</th>
                     <th>Last Update</th>
                     <th>Description</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -80,4 +84,4 @@ class BugList extends React.Component{
     }
 };
 
-export default BugList;
+export default BugListAdmin;
