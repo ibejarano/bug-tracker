@@ -9,6 +9,7 @@ import AppNavbar from './components/app-bar'
 import { authenticationService } from './services/authentication-services';
 import LoginPage from './pages/login';
 import HomePage from './pages/home';
+import BugListPage from './pages/buglist';
 
 class App extends React.Component {
     constructor(props){
@@ -41,6 +42,7 @@ class App extends React.Component {
           <AppNavbar currentUser={currentUser} logout={this.logout.bind(this)} isAdmin={isAdmin} />
           <Route exact path="/" component={HomePage} />
           <Route path="/login" component={LoginPage} />
+          <Route path="/bug-log" component={BugListPage}/>
         </Router>
         </div>
     );
