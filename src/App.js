@@ -39,7 +39,7 @@ class App extends React.Component {
         <div>
         <Router history={history}>
           <AppNavbar currentUser={currentUser} logout={this.logout.bind(this)} isAdmin={isAdmin} />
-          <Route path="/" component={HomePage} />
+          <Route exact path="/" component={HomePage} />
           <Route path="/login" component={LoginPage} />
         </Router>
         </div>
