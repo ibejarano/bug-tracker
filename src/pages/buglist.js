@@ -1,9 +1,11 @@
 import React from 'react';
 
-export default function BugListPage(){
+import BugList from '../components/bug-list';
+
+export default function BugListPage(props){
     return(
         <div>
-            Bug List Page
+            <BugList authUser= {props.authUser} />
         </div>
     )
 }

@@ -29,20 +29,20 @@ class App extends React.Component {
     }
 
     logout(){
-      authenticationService.logout();
+      authenticationService.logout(this.state.currentUser._id);
       history.push('/login');
     }
   
     render (){
       const {currentUser, isAdmin} = this.state;
-
+      console.log(this.state)
       return (
         <div>
         <Router history={history}>
-          <AppNavbar currentUser={currentUser} logout={this.logout.bind(this)} isAdmin={isAdmin} />
+          <AppNavbar currentUser={currentUser} logout={this.logout.bind(this)} isAdmin={isAdmin}/>
           <Route exact path="/" component={HomePage} />
           <Route path="/login" component={LoginPage} />
-          <Route path="/bug-log" component={BugListPage}/>
+          <Route path="/bug-log" component={BugListPage} />
         </Router>
         </div>
     );

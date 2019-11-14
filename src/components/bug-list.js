@@ -1,7 +1,6 @@
 import React from 'react';
 import '../style/bug-table.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 class BugList extends React.Component{
 
@@ -13,9 +12,10 @@ class BugList extends React.Component{
     }
 
     refreshBugList(){
+        console.log('with local storage', localStorage.currentUser)
         axios.get('http://localhost:5000/bugs', {
             headers: {
-                Authorization: 'Bearer '+ localStorage.token
+                Authorization: 'Bearer '+ localStorage.currentUser
             }
         })
         .then((res) => this.setState({
@@ -55,9 +55,6 @@ class BugList extends React.Component{
             </tr>
         );
     });
-
-    console.log(localStorage)
-
     return(
         <table className="bug-table">
             <thead>
