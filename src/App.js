@@ -1,37 +1,57 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Router, Route , Link} from 'react-router-dom';
+import {Role }from './helpers/role';
+import {history} from './helpers/history';
 
 // Components
-import BugList from './components/bug-list';
-import ReportBugForm from './components/report-bug-form';
-import EdifBugForm from './components/edit-bug-form';
-import UserRegisterForm from './components/user-register-form';
-import UserLogin from './components/user-login';
+import { authenticationService } from './services/authentication-services';
+import LoginPage from './pages/login';
 
-export default function App() {
+class App extends React.Component {
+    constructor(props){
+      super(props);
 
-    return (
-      <div className="App">
-      <header className="App-header">
-          Welcome to my bug Tracker App!
-          <nav>
-            <ul>
-              <li><a href='/'>Home</a></li>
-              <li><a href='/add'>Add new Bug</a></li>
-              <li><a href='/signup'>Sign Up</a></li>
-              <li><a href='/login'>Login</a></li>
+      this.state = {
+        currentUser: null,
+        isAdmin: false
+      }
+    }
 
-            </ul>
-          </nav>
-      </header>
-      <Router >
-        <Route path='/' exact component={BugList} />
-        <Route path='/add' component={ReportBugForm} />
-        <Route path='/update/:id' component={EdifBugForm}/>
-        <Route path='/signup' component={UserRegisterForm} />
-        <Route path='/login' component={UserLogin} />
-      </Router>
-    </div>
+    componentDidMount() {
+      authenticationService.currentUser.subscribe(x => this.setState({
+        currentUser: x,
+        isAdmin: x && x.role === Role.Admin
+      }));
+    }
+
+    logout(){
+      authenticationService.logout();
+      history.push('/login');
+    }
+  
+    render (){
+      const {currentUser, isAdmin} = this.state;
+
+      return (
+        <Router history={history}>
+        <div>
+            {currentUser &&
+                <nav >
+                    <div >
+                        <Link to="/" >Home</Link>
+                        {isAdmin && <Link to="/admin">Admin</Link>}
+                        <a onClick={this.logout}>Logout</a>
+                    </div>
+                </nav>
+            }
+
+           <Route path="/login" component={LoginPage} />
+
+        </div>
+    </Router>
     );
+  }
 }
+
+export default App;
