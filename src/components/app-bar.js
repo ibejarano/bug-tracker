@@ -32,11 +32,13 @@ export default function AppNavbar(props) {
           <Typography variant="h6" className={classes.title}>
             Bug Tracker App
           </Typography>
+          { !props.currentUser &&
           <Button color="inherit" href='/login'>Login</Button>
+          }
           { props.currentUser && <div>
-            <Button to="/" >Home
+            <Button  color="inherit"  to="/" >Home
             </Button>
-            <Button onClick={props.logout}>Logout               
+            <Button  color="inherit"  onClick={props.logout}>Logout               
             </Button>
             </div> }  
         </Toolbar>
