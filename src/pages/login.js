@@ -10,7 +10,7 @@ class LoginPage extends React.Component {
         }
 
         if (authenticationService.currentUserValue){
-            this.props.history.push('/');
+            this.state.history.push('/');
         }
     }
 
@@ -32,9 +32,8 @@ class LoginPage extends React.Component {
         const params = {...this.state}
 
         const res = await authenticationService.login(params.email, params.password);
-        console.log(res)
-        const { from } = this.props.location.state || { from: {pathname: '/' }};
-        this.props.history.push(from);
+        const { from } = this.state.location.state || { from: {pathname: '/' }};
+        this.state.history.push(from);
     }
 
     render(){

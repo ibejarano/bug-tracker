@@ -1,12 +1,14 @@
 import React from 'react';
 import '../style/bug-table.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class BugList extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            bugList: []
+            bugList: [],
+            isAdmin: false
         }
     }
 
@@ -18,7 +20,8 @@ class BugList extends React.Component{
             }
         })
         .then((res) => this.setState({
-          bugList: res.data
+          bugList: res.data.bugs,
+          isAdmin: res.data.user.isAdmin
         })
         )
         .catch(err => console.log('There is an error', err))
@@ -41,6 +44,10 @@ class BugList extends React.Component{
         let createdDateParse = new Date( Date.parse(bugRow.createdAt))
         let updatedDateParse = new Date( Date.parse(bugRow.updatedAt))
 
+        console.log('this route',this.route)
+        console.log('this prop',this.state)
+        console.log('this prop route',this.state.route)
+
         return(
             <tr key={idx}>
                 <td> {bugRow._id.slice(-6) } </td>
@@ -51,6 +58,8 @@ class BugList extends React.Component{
                 <td> {createdDateParse.toLocaleString()} </td>
                 <td> {updatedDateParse.toLocaleString()} </td>
                 <td> {bugRow.shortDescription} </td>
+                {(this.state.isAdmin || this.state.isDev )&& <td> <Link to={`/update/${bugRow._id}`} > Edit </Link>  </td> }
+                {(this.state.isAdmin )&& <td> <button onClick={(props)=>{this.deleteBug(bugRow._id)}} >Delete</button> </td> }
             </tr>
         );
     });
@@ -66,6 +75,8 @@ class BugList extends React.Component{
                     <th>Creation date</th>
                     <th>Last Update</th>
                     <th>Description</th>
+                    {(this.state.isAdmin || this.state.isDev )&& <th>Edit Bug </th> }
+                    {(this.state.isAdmin )&& <th> Delete Bug </th> }
                 </tr>
             </thead>
             <tbody>
