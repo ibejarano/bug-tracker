@@ -3,7 +3,6 @@ import '../style/bug-table.css';
 import axios from 'axios';
 
 class BugList extends React.Component{
-
     constructor(props){
         super(props);
         this.state = {
@@ -12,10 +11,10 @@ class BugList extends React.Component{
     }
 
     refreshBugList(){
-        console.log('with local storage', localStorage.currentUser)
+        console.log('Bearer '+ localStorage.currentUser)
         axios.get('http://localhost:5000/bugs', {
             headers: {
-                Authorization: 'Bearer '+ localStorage.currentUser
+                Authorization: 'Bearer '+ JSON.parse(localStorage.currentUser)
             }
         })
         .then((res) => this.setState({
