@@ -38,19 +38,24 @@ class BugList extends React.Component{
             .catch(err => console.log('Error ocurred!',err))
     }
 
+
+
     render(){
 
     const bugRows = this.state.bugList.map((bugRow, idx)=>{
         let createdDateParse = new Date( Date.parse(bugRow.createdAt))
         let updatedDateParse = new Date( Date.parse(bugRow.updatedAt))
 
-        console.log('this route',this.route)
-        console.log('this prop',this.state)
-        console.log('this prop route',this.state.route)
 
         return(
-            <tr key={idx}>
-                <td> {bugRow._id.slice(-6) } </td>
+            <tr href='/' key={idx}>
+                <td>
+                    <Link to={{
+                        pathname: '/bug',
+                        query: {id: bugRow._id}
+                    }}>
+                     {bugRow._id.slice(-6) } 
+                    </Link></td>
                 <td> {bugRow.severity} </td>
                 <td> {bugRow.priority} </td>
                 <td> {bugRow.state} </td>
@@ -58,7 +63,7 @@ class BugList extends React.Component{
                 <td> {createdDateParse.toLocaleString()} </td>
                 <td> {updatedDateParse.toLocaleString()} </td>
                 <td> {bugRow.shortDescription} </td>
-                {(this.state.isAdmin || this.state.isDev )&& <td> <Link to={`/update/${bugRow._id}`} > Edit </Link>  </td> }
+                {(this.state.isAdmin || this.state.isDev )&& <td> <a to={`/update/${bugRow._id}`} > Edit </a>  </td> }
                 {(this.state.isAdmin )&& <td> <button onClick={(props)=>{this.deleteBug(bugRow._id)}} >Delete</button> </td> }
             </tr>
         );
