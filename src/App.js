@@ -43,7 +43,6 @@ class App extends React.Component {
   
     render (){
       const {currentUser, isAdmin} = this.state;
-
       return (
         <div>
         <Router history={history}  >

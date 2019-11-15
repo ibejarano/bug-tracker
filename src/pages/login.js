@@ -10,7 +10,7 @@ class LoginPage extends React.Component {
         }
 
         if (authenticationService.currentUserValue){
-            this.state.history.push('/');
+            this.props.history.push('/');
         }
     }
 
@@ -26,19 +26,27 @@ class LoginPage extends React.Component {
         })
     };
 
-    async onSubmit(e){
+    onSubmit(e){
         e.preventDefault();
 
         const params = {...this.state}
 
-        const res = await authenticationService.login(params.email, params.password);
-        const { from } = this.state.location.state || { from: {pathname: '/' }};
-        this.state.history.push(from);
+        authenticationService.login(params.email, params.password)
+            .then((res) => {
+                console.log(res);
+                const { from } = this.props.location.state || { from: {pathname: '/' }};
+                this.props.history.push(from);
+            } )
+            .catch(err => {
+                console.log(err);this.props.history.push('/login')
+            });
     }
 
     render(){
+        console.log(this.state)
 
     return(
+
         <div>
             <h1>Login</h1>
             <form className='form-container' onSubmit={this.onSubmit.bind(this)} >
