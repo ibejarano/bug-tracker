@@ -32,6 +32,7 @@ class LoginPage extends React.Component {
         const params = {...this.state}
 
         const res = await authenticationService.login(params.email, params.password);
+        console.log(res)
         const { from } = this.props.location.state || { from: {pathname: '/' }};
         this.props.history.push(from);
     }

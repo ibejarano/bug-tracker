@@ -10,6 +10,7 @@ import { authenticationService } from './services/authentication-services';
 import LoginPage from './pages/login';
 import HomePage from './pages/home';
 import BugListPage from './pages/buglist';
+import UserRegisterForm from './pages/register';
 
 class App extends React.Component {
     constructor(props){
@@ -43,6 +44,7 @@ class App extends React.Component {
           <Route exact path="/" component={HomePage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/bug-log" component={BugListPage} />
+          <Route path="/register" component={UserRegisterForm} />
         </Router>
         </div>
     );

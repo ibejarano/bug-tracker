@@ -39,16 +39,18 @@ class UserRegisterForm extends React.Component {
         })
     };
 
-    onSubmit(e){
+    async onSubmit(e){
         e.preventDefault();
 
         const params = {...this.state}
 
-        console.log(params)
-
-        axios.post('http://localhost:5000/user/register', params)
-            .then((res) => console.log(res))
-            .catch(err => console.log(err))
+        try {
+            const res = axios.post('http://localhost:5000/user/register', params);
+            console.log(res)
+            this.props.history.push('/')
+        } catch(error){
+            console.log(error)
+        }
     };
 
     render(){

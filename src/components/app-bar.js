@@ -33,7 +33,10 @@ export default function AppNavbar(props) {
             Bug Tracker App
           </Typography>
           { !props.currentUser &&
+          <div>
           <Button color="inherit" href='/login'>Login</Button>
+          <Button color="inherit" href='/register'>Register</Button>
+          </div>
           }
           { props.currentUser && <div>
             <Button  color="inherit"  href="/" >Home

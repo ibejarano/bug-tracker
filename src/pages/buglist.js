@@ -2,10 +2,10 @@ import React from 'react';
 
 import BugList from '../components/bug-list';
 
-export default function BugListPage(props){
+export default function BugListPage(){
     return(
         <div>
-            <BugList authUser= {props.authUser} />
+            <BugList />
         </div>
     )
 }
