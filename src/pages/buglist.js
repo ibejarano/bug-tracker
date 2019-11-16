@@ -40,7 +40,7 @@ class BugList extends React.Component{
 
 
     render(){
-
+        console.log(this.props.userData)
     const bugRows = this.state.bugList.map((bugRow, idx)=>{
         let createdDateParse = new Date( Date.parse(bugRow.createdAt))
         let updatedDateParse = new Date( Date.parse(bugRow.updatedAt))

@@ -42,15 +42,15 @@ class App extends React.Component {
     }
   
     render (){
-      const {currentUser, isAdmin} = this.state;
+      const {currentUser} = this.state;
       return (
         <div>
         <Router history={history}  >
-          <AppNavbar currentUser={currentUser} logout={this.logout.bind(this)} isAdmin={isAdmin}/>
+          <AppNavbar currentUser={currentUser} logout={this.logout.bind(this)} />
           <Route exact path="/" component={HomePage} />
           <Route path="/login"  component={LoginPage} />
           <Route path="/bug" component={BugDetails} ></Route>
-          <Route exact path="/bug-log" render={ (props) => <BugList isAdmin={this.state.isAdmin}/> }/>
+          <Route exact path="/bug-log" render={ (props) => <BugList /> }/>
           <Route path="/register" component={UserRegisterForm} />
         </Router>
         </div>

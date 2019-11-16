@@ -7,7 +7,7 @@ export default function BugAddComment(props){
     const changeTextHandler = (e) => setText(e.target.value)
     const submitHandler = (e) =>{
         e.preventDefault();
-        console.log(e.body)
+        props.addNewComment(text);
     }
 
         return(
