@@ -9,10 +9,9 @@ import AppNavbar from './components/app-bar'
 import { authenticationService } from './services/authentication-services';
 import LoginPage from './pages/login';
 import HomePage from './pages/home';
-import BugListPage from './pages/buglist';
 import UserRegisterForm from './pages/register';
-import BugList from './components/bug-list';
-import BugPage from './pages/bugdetails';
+import BugList from './pages/buglist';
+import BugDetails from './pages/bugdetails';
 
 
 class App extends React.Component {
@@ -50,10 +49,8 @@ class App extends React.Component {
           <AppNavbar currentUser={currentUser} logout={this.logout.bind(this)} isAdmin={isAdmin}/>
           <Route exact path="/" component={HomePage} />
           <Route path="/login"  component={LoginPage} />
-          <Route exact path="/bug" component={BugPage} ></Route>
-          <Route path="/bug-log" component={BugListPage}>
-            <Route render={ (props) => <BugList isAdmin={this.state.isAdmin}/> }/>
-          </Route>
+          <Route path="/bug" component={BugDetails} ></Route>
+          <Route exact path="/bug-log" render={ (props) => <BugList isAdmin={this.state.isAdmin}/> }/>
           <Route path="/register" component={UserRegisterForm} />
         </Router>
         </div>
