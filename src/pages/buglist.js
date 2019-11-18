@@ -50,15 +50,14 @@ class BugList extends React.Component{
             <tr key={idx}>
                 <td>
                     <Link to={`/bug?id=${bugRow._id}`}>
-                     {bugRow._id.slice(-6) } 
+                     {bugRow.title} 
                     </Link></td>
-                <td> {bugRow.severity} </td>
+                <td> {bugRow.type} </td>
+                <td> {bugRow.status} </td>
                 <td> {bugRow.priority} </td>
-                <td> {bugRow.state} </td>
-                <td> {bugRow.resolution} </td>
+                <td> {bugRow.assignee} </td>
                 <td> {createdDateParse.toLocaleString()} </td>
                 <td> {updatedDateParse.toLocaleString()} </td>
-                <td> {bugRow.shortDescription} </td>
                 {(this.state.isAdmin || this.state.isDev )&& 
                     <td> <a href={`/update/${bugRow._id}`} > 
                     Edit </a>  </td> }
@@ -72,14 +71,13 @@ class BugList extends React.Component{
         <table className="bug-table">
             <thead>
                 <tr className="bug-table-row" >
-                    <th>#ID</th>
-                    <th>Severity</th>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Status</th>
                     <th>Priority</th>
-                    <th>State</th>
-                    <th>Resolution</th>
+                    <th>Assignee</th>
                     <th>Creation date</th>
                     <th>Last Update</th>
-                    <th>Description</th>
                     {(this.state.isAdmin || this.state.isDev )&& <th>Edit Bug </th> }
                     {(this.state.isAdmin )&& <th> Delete Bug </th> }
                 </tr>

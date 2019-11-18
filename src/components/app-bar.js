@@ -41,7 +41,7 @@ export default function AppNavbar(props) {
           { props.currentUser && <div>
             <Button  color="inherit"  href="/" >Home
             </Button>
-            <Button  color="inherit"  href="/issue-log" > Bug List
+            <Button  color="inherit"  href="/issue-log" > Issue Log
             </Button>
             <Button  color="inherit"  href="/report-issue" > Add Issue
             </Button>
