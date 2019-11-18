@@ -14,6 +14,7 @@ import UserRegisterForm from './pages/register';
 import IssueList from './pages/buglist';
 import IssueDetails from './pages/bugdetails';
 import ReportIssue from './pages/report-bug';
+import EditIssue from './pages/edit-issue';
 
 
 class App extends React.Component {
@@ -59,10 +60,11 @@ class App extends React.Component {
             />
           }
           <Route path="/login"  component={LoginPage} />
-          <Route path="/bug" component={IssueDetails} ></Route>
+          <Route path="/issue" component={IssueDetails} ></Route>
           <Route path="/issue-log" render={ (props) => <IssueList /> }/>
           <Route path="/register" component={UserRegisterForm} />
           <Route path="/report-issue" component={ReportIssue} />
+          <Route path="/issue-edit" component={ EditIssue } />
         </Router>
         </div>
     );

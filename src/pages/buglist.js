@@ -49,7 +49,7 @@ class BugList extends React.Component{
         return(
             <tr key={idx}>
                 <td>
-                    <Link to={`/bug?id=${bugRow._id}`}>
+                    <Link to={`/issue?id=${bugRow._id}`}>
                      {bugRow.title} 
                     </Link></td>
                 <td> {bugRow.type} </td>
@@ -59,8 +59,9 @@ class BugList extends React.Component{
                 <td> {createdDateParse.toLocaleString()} </td>
                 <td> {updatedDateParse.toLocaleString()} </td>
                 {(this.state.isAdmin || this.state.isDev )&& 
-                    <td> <a href={`/update/${bugRow._id}`} > 
-                    Edit </a>  </td> }
+                    <td> <Link to={`/issue-edit?id=${bugRow._id}`}>
+                    Edit 
+                   </Link> </td> }
                 {(this.state.isAdmin )&& <td> 
                     <button onClick={(props)=>{this.deleteBug(bugRow._id)}} 
                     >Delete</button> </td> }
