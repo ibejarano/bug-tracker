@@ -11,8 +11,9 @@ import LoginPage from './pages/login';
 import HomeGuestPage from './pages/home-guest';
 import HomePage from './pages/home';
 import UserRegisterForm from './pages/register';
-import BugList from './pages/buglist';
-import BugDetails from './pages/bugdetails';
+import IssueList from './pages/buglist';
+import IssueDetails from './pages/bugdetails';
+import ReportIssue from './pages/report-bug';
 
 
 class App extends React.Component {
@@ -58,9 +59,10 @@ class App extends React.Component {
             />
           }
           <Route path="/login"  component={LoginPage} />
-          <Route path="/bug" component={BugDetails} ></Route>
-          <Route exact path="/bug-log" render={ (props) => <BugList /> }/>
+          <Route path="/bug" component={IssueDetails} ></Route>
+          <Route path="/issue-log" render={ (props) => <IssueList /> }/>
           <Route path="/register" component={UserRegisterForm} />
+          <Route path="/report-issue" component={ReportIssue} />
         </Router>
         </div>
     );

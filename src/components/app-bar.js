@@ -30,7 +30,7 @@ export default function AppNavbar(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Bug Tracker App
+            Issue Tracker App
           </Typography>
           { !props.currentUser &&
           <div>
@@ -41,7 +41,9 @@ export default function AppNavbar(props) {
           { props.currentUser && <div>
             <Button  color="inherit"  href="/" >Home
             </Button>
-            <Button  color="inherit"  href="/bug-log" > Bug List
+            <Button  color="inherit"  href="/issue-log" > Bug List
+            </Button>
+            <Button  color="inherit"  href="/report-issue" > Add Issue
             </Button>
             <Button  color="inherit"  onClick={props.logout}>Logout               
             </Button>
