@@ -33,7 +33,8 @@ class LoginPage extends React.Component {
 
         authenticationService.login(params.email, params.password)
             .then((res) => {
-                console.log(res);
+                console.log('Succesful login!')
+                console.log('Response from server! ', res);
                 const { from } = this.props.location.state || { from: {pathname: '/' }};
                 this.props.history.push(from);
             } )

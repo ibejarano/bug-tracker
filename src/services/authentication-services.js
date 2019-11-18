@@ -15,15 +15,20 @@ export const authenticationService = {
 
 async function login(email, password){
     const params = {email, password}
-    let res = await axios.post('http://localhost:5000/user/login', params ).catch(err => console.log('Some error!', err));
+    let res = await axios.post('http://localhost:5000/login', params ).catch(err => console.log('Some error!', err));
     localStorage.setItem('currentUser', JSON.stringify(res.data.token));
-    currentUserSubject.next(res.data.user)
-    return res.data.user
+    currentUserSubject.next(res.data.userAuth)
+    return res.data.userAuth
 }
 
 async function logout(id){
+    console.log(id)
     const params = {id};
-    const res = await axios.post('http://localhost:5000/user/logout', params ).catch(err => console.log('Some error!', err))
+    const res = await axios.post('http://localhost:5000/user/logout', params,{
+        headers: {
+            Authorization: 'Bearer '+ JSON.parse(localStorage.getItem('currentUser'))
+        }
+    } ).catch(err => console.log('Some error!', err))
     console.log(res)
     localStorage.removeItem('currentUser');
     currentUserSubject.next(null);
