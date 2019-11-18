@@ -30,10 +30,15 @@ async function logout(id){
 }
 
 async function getUserInfo(){
-    let res = await axios.get('http://localhost:5000/user/info', {
-        headers: {
-            Authorization: 'Bearer '+ this.currentUserValue
-        }
-    }).catch(err => console.log('Some error!', err));
-    return res.data
+    try{
+        let res = await axios.get('http://localhost:5000/user/info', {
+            headers: {
+                Authorization: 'Bearer '+ JSON.parse(localStorage.getItem('currentUser'))
+            }
+        })
+        return res.data
+    } catch(error){
+        console.log('Error ocurred get user info.', error.toString())
+        return error
+    }
 }

@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { authenticationService } from '../services/authentication-services';
 
 export default function HomePage(){
 
-    const [userData , setUserData ] = useState({});
+    const [userData , setUserData ] = useState(null);
 
-    authenticationService.getUserInfo().then( data => {
-        setUserData(data)
+    useEffect(()=>{
+        if (!userData){
+            authenticationService.getUserInfo().then( data => {
+                setUserData(data)
+            })
+        }
+        else{
+            console.log('User Already setted', userData)
+        }
+        
     })
-
     return(
         <div>
         { userData &&
