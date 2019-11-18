@@ -8,6 +8,7 @@ import AppNavbar from './components/app-bar'
 // // Components
 import { authenticationService } from './services/authentication-services';
 import LoginPage from './pages/login';
+import HomeGuestPage from './pages/home-guest';
 import HomePage from './pages/home';
 import UserRegisterForm from './pages/register';
 import BugList from './pages/buglist';
@@ -47,7 +48,15 @@ class App extends React.Component {
         <div>
         <Router history={history}  >
           <AppNavbar currentUser={currentUser} logout={this.logout.bind(this)} />
-          <Route exact path="/" component={HomePage} />
+          { !currentUser &&
+            <Route exact path="/" component={HomeGuestPage} />
+          }
+          {
+            currentUser && 
+            <Route exact path="/" 
+            render={(props) => <HomePage user={currentUser} /> }
+            />
+          }
           <Route path="/login"  component={LoginPage} />
           <Route path="/bug" component={BugDetails} ></Route>
           <Route exact path="/bug-log" render={ (props) => <BugList /> }/>

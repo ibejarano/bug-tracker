@@ -31,17 +31,17 @@ class BugList extends React.Component{
     };
 
     deleteBug(id){
-        axios.delete(`http://localhost:5000/bugs/${id}`)
-            .then(res => console.log(res.data))
-            .then(()=> window.location='/')
+        axios.delete(`http://localhost:5000/bugs/${id}`, {
+            headers: {
+                Authorization: 'Bearer '+ JSON.parse(localStorage.currentUser)
+            }
+        })
+            .then(res => console.log(res))
             .catch(err => console.log('Error ocurred!',err))
     }
 
-
-
     render(){
-        console.log(this.props.userData)
-    const bugRows = this.state.bugList.map((bugRow, idx)=>{
+        const bugRows = this.state.bugList.map((bugRow, idx)=>{
         let createdDateParse = new Date( Date.parse(bugRow.createdAt))
         let updatedDateParse = new Date( Date.parse(bugRow.updatedAt))
 
@@ -59,8 +59,12 @@ class BugList extends React.Component{
                 <td> {createdDateParse.toLocaleString()} </td>
                 <td> {updatedDateParse.toLocaleString()} </td>
                 <td> {bugRow.shortDescription} </td>
-                {(this.state.isAdmin || this.state.isDev )&& <td> <a to={`/update/${bugRow._id}`} > Edit </a>  </td> }
-                {(this.state.isAdmin )&& <td> <button onClick={(props)=>{this.deleteBug(bugRow._id)}} >Delete</button> </td> }
+                {(this.state.isAdmin || this.state.isDev )&& 
+                    <td> <a href={`/update/${bugRow._id}`} > 
+                    Edit </a>  </td> }
+                {(this.state.isAdmin )&& <td> 
+                    <button onClick={(props)=>{this.deleteBug(bugRow._id)}} 
+                    >Delete</button> </td> }
             </tr>
         );
     });

@@ -8,6 +8,7 @@ const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('
 export const authenticationService = {
     login,
     logout,
+    getUserInfo,
     currentUser: currentUserSubject.asObservable(),
     get currentUserValue() { return currentUserSubject.value }
 }
@@ -26,4 +27,13 @@ async function logout(id){
     console.log(res)
     localStorage.removeItem('currentUser');
     currentUserSubject.next(null);
+}
+
+async function getUserInfo(){
+    let res = await axios.get('http://localhost:5000/user/info', {
+        headers: {
+            Authorization: 'Bearer '+ this.currentUserValue
+        }
+    }).catch(err => console.log('Some error!', err));
+    return res.data
 }
