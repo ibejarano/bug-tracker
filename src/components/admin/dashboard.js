@@ -1,11 +1,11 @@
 import React from 'react';
 import '../style/bug-table.css';
 
-export default function AdminDashboard(){
-    return(
+export default function AdminDashboard() {
+    return (
         <div>
             <h1>
-            Admin only dashboard
+                Admin only dashboard
             </h1>
             <p>
                 This page is to manage admin resources
