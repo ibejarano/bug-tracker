@@ -69,7 +69,7 @@ export default function EditIssue(props) {
         e.preventDefault();
 
         console.log('Editing bug #', id)
-        const urlPost = `http://localhost:5000/bugs/update/${id}`;
+        const urlPost = `http://localhost:5000/bugs/${id}`;
         const authHeaders = {
             headers: {
                 Authorization: 'Bearer ' + JSON.parse(localStorage.currentUser)
@@ -97,12 +97,12 @@ export default function EditIssue(props) {
         if (issueType === '') {
             try {
                 async function fetchBugData() {
-                    const {bug} = await bugHandler.getById(id);
-                    setIssueType(bug.type);
-                    setPriority(bug.priority);
-                    setIssueTitle(bug.title);
-                    setStatus(bug.status);
-                    setAssignee(bug.assignee);
+                    const {issue} = await bugHandler.getById(id);
+                    setIssueType(issue.type);
+                    setPriority(issue.priority);
+                    setIssueTitle(issue.title);
+                    setStatus(issue.status);
+                    setAssignee(issue.assignee);
                 }
                 async function fetchUserData() {
                     const users = await userHandler.getAllUsers();

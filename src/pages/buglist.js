@@ -19,7 +19,7 @@ class BugList extends React.Component {
             }
         })
             .then((res) => this.setState({
-                bugList: res.data.bugs,
+                bugList: res.data.issues,
                 isAdmin: res.data.user.isAdmin
             })
             )
