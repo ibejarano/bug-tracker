@@ -11,8 +11,8 @@ import LoginPage from './pages/login';
 import HomeGuestPage from './pages/home-guest';
 import HomePage from './pages/home';
 import UserRegisterForm from './pages/register';
-import IssueList from './pages/buglist';
-import IssueDetails from './pages/bugdetails';
+import IssueList from './pages/issue-list';
+import IssueDetails from './pages/issue';
 import ReportIssue from './pages/report-bug';
 import EditIssue from './pages/edit-issue';
 

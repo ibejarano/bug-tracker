@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { bugHandler } from '../services/bug-handler';
-import { userHandler } from '../services/user-handler';
+import { issuesHandler } from '../handlers/issues';
+import { userHandler } from '../handlers/users';
 
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -32,7 +31,6 @@ function createOptionTags(opt, idx) {
         <MenuItem key={idx} value={opt}> {opt} </MenuItem>
     )
 }
-
 
 export default function EditIssue(props) {
 
@@ -67,14 +65,7 @@ export default function EditIssue(props) {
 
     const onSubmit = async function (e) {
         e.preventDefault();
-
         console.log('Editing bug #', id)
-        const urlPost = `http://localhost:5000/bugs/${id}`;
-        const authHeaders = {
-            headers: {
-                Authorization: 'Bearer ' + JSON.parse(localStorage.currentUser)
-            }
-        }
         const params = {
             priority,
             type: issueType,
@@ -83,33 +74,28 @@ export default function EditIssue(props) {
             assignee
         }
         try {
-            const res = await axios.put(urlPost, params, authHeaders)
-            // TODO use this to display some info!
-            console.log(res)
+            const res = issuesHandler.update(id, params)
+            console.log(res);
             props.history.push('/issue-log')
-        } catch (error) {
-            console.log(error.toString())
+        } catch(error){
+            console.log('And error ocurred during update', error.toString())
         }
-
     };
 
     useEffect(() => {
         if (issueType === '') {
             try {
-                async function fetchBugData() {
-                    const {issue} = await bugHandler.getById(id);
+                async function fetchData() {
+                    const {issue} = await issuesHandler.getById(id);
                     setIssueType(issue.type);
                     setPriority(issue.priority);
                     setIssueTitle(issue.title);
                     setStatus(issue.status);
                     setAssignee(issue.assignee);
-                }
-                async function fetchUserData() {
                     const users = await userHandler.getAllUsers();
                     setAsignees(users)
                 }
-                fetchBugData();
-                fetchUserData();
+                fetchData();
             } catch (error) {
                 console.log(error.toString());
             }

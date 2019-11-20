@@ -1,49 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-import { bugHandler } from '../services/bug-handler';
+import { issuesHandler } from '../handlers/issues';
 import BugInfoCard from '../components/cards/bug-info-card';
 import BugCommentCard from '../components/cards/bug-comment-card';
 import BugAddComment from '../components/bug-add-comment';
 
 export default function BugPage(props) {
-    const [bug, setBug] = useState(null);
+    const [issue, setIssue] = useState(null);
     const [commentsCards, setCommentsCards] = useState(null);
     const [isAdmin, setIsAdmin] = useState(false);
     const id = props.location.search.split('=')[1]; //TODO ADD Error handling if query doesnt exist
 
     const addNewComment = async function (text) {
-        const params = { text: text }
+        const params = { text }
         try {
-            const urlComments = `http://localhost:5000/bugs/add-comment/${id}`
-            const res = await axios.put(urlComments
-                , params, {
-                headers: {
-                    Authorization: 'Bearer ' + JSON.parse(localStorage.currentUser)
-                }
-            })
+            const res = await issuesHandler.addComment(id, params)
+            setIssue(null)
             console.log(res)
-            setBug(null)
             console.log(props.history)
         } catch (err) {
-            console.log(err)
+            console.log('An error ocurred adding comment:', err.toString())
         }
     }
 
     useEffect(() => {
-        async function getBugComments() {
-            const res = await bugHandler.getById(id);
+        async function getIssueComments() {
+            const res = await issuesHandler.getById(id);
             console.log('Received bug info',res)
-            await setBug(res.bug);
-            await setIsAdmin(res.user.isAdmin)
-            if (res.bug.comments.length) {
-                setCommentsCards(<BugCommentCard comments={res.bug.comments} />);
+            setIssue(res.issue);
+            setIsAdmin(res.user.isAdmin)
+            if (res.issue.comments.length) {
+                setCommentsCards(<BugCommentCard comments={res.issue.comments} />);
             }
         }
-        if (!bug) {
+        if (!issue) {
             try {
-                getBugComments();
+                getIssueComments();
             } catch (error) {
                 console.log(error.toString());
             }
@@ -52,8 +45,8 @@ export default function BugPage(props) {
 
     return (
         <div>This is a bug number #{id}
-            {bug && <BugInfoCard info={bug} /> }
-            {isAdmin && <Link to={`/issue-edit?id=${bug._id}`} >Edit Issue</Link> }
+            {issue && <BugInfoCard info={issue} /> }
+            {isAdmin && <Link to={`/issue-edit?id=${id}`} >Edit Issue</Link> }
             {commentsCards}
             <BugAddComment addNewComment={addNewComment} />
         </div>
