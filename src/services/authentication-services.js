@@ -15,6 +15,7 @@ export const authenticationService = {
 
 async function login(email, password) {
     const params = { email, password }
+    console.log(params)
     let res = await axios.post('http://localhost:5000/login', params).catch(err => console.log('Some error!', err));
     localStorage.setItem('currentUser', JSON.stringify(res.data.token));
     currentUserSubject.next(res.data.userAuth)

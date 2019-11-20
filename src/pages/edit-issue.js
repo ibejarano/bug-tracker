@@ -97,16 +97,15 @@ export default function EditIssue(props) {
         if (issueType === '') {
             try {
                 async function fetchBugData() {
-                    const bug = await bugHandler.getById(id);
+                    const {bug} = await bugHandler.getById(id);
                     setIssueType(bug.type);
                     setPriority(bug.priority);
                     setIssueTitle(bug.title);
                     setStatus(bug.status);
-                    setAssignee(bug.assignee)
+                    setAssignee(bug.assignee);
                 }
                 async function fetchUserData() {
                     const users = await userHandler.getAllUsers();
-                    console.log(users)
                     setAsignees(users)
                 }
                 fetchBugData();
