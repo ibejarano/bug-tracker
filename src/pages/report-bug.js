@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+
+import { issuesHandler } from '../handlers/issues';
 
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -56,13 +57,6 @@ export default function ReportBugForm() {
 
     const onSubmit = async function (e) {
         e.preventDefault();
-
-        const urlPost = 'http://localhost:5000/bugs/add';
-        const authHeaders = {
-            headers: {
-                Authorization: 'Bearer ' + JSON.parse(localStorage.currentUser)
-            }
-        }
         const params = {
             priority,
             type: issueType,
@@ -70,7 +64,7 @@ export default function ReportBugForm() {
             title: issueTitle
         }
         try {
-            const res = await axios.post(urlPost, params, authHeaders)
+            const res = await issuesHandler.add(params);
             // TODO use this to display some info!
             console.log(res)
         } catch (error) {
