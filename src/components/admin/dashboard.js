@@ -26,7 +26,7 @@ export default function AdminDashboard() {
             <div>
                 <button onClick={getUsers}>Click me to see all the users!</button>
             </div>
-            {usersList && <UsersList users={usersList} />}
+            {usersList && <UsersList />}
         </div>
     )
 }
