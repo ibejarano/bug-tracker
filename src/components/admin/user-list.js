@@ -12,6 +12,14 @@ export default function UsersList() {
         setLoadingUsers(false);
       });
   });
+
+  const deleteUserById = async (id) => {
+    const res = await userHandler.deleteById(id);
+    setUsers([]);
+    console.log(res)
+  }
+
+
   const usersDataRow = users.map((user, idx) => {
     return (
       <tr key={idx}>
@@ -20,7 +28,7 @@ export default function UsersList() {
         <td>{user.isAdmin? 'Yes':'No'}</td>
         <td>{user.isDev? 'Yes':'No'}</td>
         <td> EDIT </td>
-        <td> DELETE </td>
+        <td> <button onClick={() => deleteUserById(user._id)} >Delete</button> </td>
       </tr>
     );
   });

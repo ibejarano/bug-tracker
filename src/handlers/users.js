@@ -10,7 +10,8 @@ const authHeader  = {
 
 export const userHandler = {
     getUserInfo,
-    getAllUsers
+    getAllUsers,
+    deleteById
 }
 
 async function getUserInfo() {
@@ -29,6 +30,16 @@ async function getAllUsers() {
         return res.data
     } catch (err) {
         console.log('Users not found!', err)
+        return err
+    }
+}
+
+async function deleteById(id) {
+    try {
+        const res = await axios.delete(`http://localhost:5000/user/${id}`, authHeader);
+        return res
+    } catch (err) {
+        console.log('User not found!', err)
         return err
     }
 }
