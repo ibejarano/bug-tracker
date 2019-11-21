@@ -45,7 +45,7 @@ class UserRegisterForm extends React.Component {
         const params = { ...this.state }
 
         try {
-            const res = axios.post('http://localhost:5000/user/register', params);
+            const res = axios.post('http://localhost:5000/register', params);
             console.log(res)
             this.props.history.push('/')
         } catch (error) {
