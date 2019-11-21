@@ -31,7 +31,7 @@ function createOptionTags(opt, idx) {
     )
 }
 
-export default function ReportBugForm() {
+export default function ReportBugForm(props) {
 
     const classes = useStyles();
     const [issueType, setIssueType] = useState('');
@@ -67,6 +67,9 @@ export default function ReportBugForm() {
             const res = await issuesHandler.add(params);
             // TODO use this to display some info!
             console.log(res)
+            if  (res.status === 200){
+                props.history.push('/issue-log')
+            }
         } catch (error) {
             console.log(error.toString())
         }

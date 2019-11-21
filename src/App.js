@@ -13,7 +13,7 @@ import HomePage from './pages/home';
 import UserRegisterForm from './pages/register';
 import IssueList from './pages/issue-list';
 import IssueDetails from './pages/issue';
-import ReportIssue from './pages/report-bug';
+import ReportIssue from './pages/report-issue';
 import EditIssue from './pages/edit-issue';
 
 
