@@ -19,15 +19,26 @@ export default function UsersList() {
     console.log(res)
   }
 
+  const onSubmit = (e) =>{
+    e.preventDefault()
+    console.log(e.target)
+  }
 
   const usersDataRow = users.map((user, idx) => {
     return (
       <tr key={idx}>
-        <td>{user.username}</td>
-        <td>{user.email}</td>
+        <td>
+        <input type='text' name='username'
+          defaultValue={user.username}
+          />
+        </td>
+        <td>
+          <input type='text' name='email'
+          defaultValue={user.email}
+          />
+        </td>
         <td>{user.isAdmin? 'Yes':'No'}</td>
         <td>{user.isDev? 'Yes':'No'}</td>
-        <td> EDIT </td>
         <td> <button onClick={() => deleteUserById(user._id)} >Delete</button> </td>
       </tr>
     );
