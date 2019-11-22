@@ -13,36 +13,14 @@ export default function UsersList() {
       });
   });
 
-  const deleteUserById = async (id) => {
+  const deleteUserById = async id => {
     const res = await userHandler.deleteById(id);
     setUsers([]);
-    console.log(res)
-  }
+    console.log(res);
+  };
 
-  const onSubmit = (e) =>{
-    e.preventDefault()
-    console.log(e.target)
-  }
+  console.log(users)
 
-  const usersDataRow = users.map((user, idx) => {
-    return (
-      <tr key={idx}>
-        <td>
-        <input type='text' name='username'
-          defaultValue={user.username}
-          />
-        </td>
-        <td>
-          <input type='text' name='email'
-          defaultValue={user.email}
-          />
-        </td>
-        <td>{user.isAdmin? 'Yes':'No'}</td>
-        <td>{user.isDev? 'Yes':'No'}</td>
-        <td> <button onClick={() => deleteUserById(user._id)} >Delete</button> </td>
-      </tr>
-    );
-  });
   return (
     <div>
       {!loadingUsers && (
@@ -57,7 +35,32 @@ export default function UsersList() {
               <th> Delete </th>
             </tr>
           </thead>
-          <tbody>{usersDataRow}</tbody>
+          <tbody>
+            {users.map((user, idx) => {
+              return (
+                <tr key={idx}>
+                  <td>
+                    <input
+                      type="text"
+                      name="username"
+                      defaultValue={user.username}
+                    />
+                  </td>
+                  <td>
+                    <input type="text" name="email" defaultValue={user.email} />
+                  </td>
+                  <td>{user.isAdmin ? "Yes" : "No"}</td>
+                  <td>{user.isDev ? "Yes" : "No"}</td>
+                  <td>
+                    {" "}
+                    <button onClick={() => deleteUserById(user._id)}>
+                      Delete
+                    </button>{" "}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
       )}
       {loadingUsers && <p>Loading...</p>}

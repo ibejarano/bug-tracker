@@ -11,11 +11,13 @@ const authHeader  = {
 export const userHandler = {
     getUserInfo,
     getAllUsers,
-    deleteById
+    deleteById,
+    logout
 }
 
 async function getUserInfo() {
     try {
+        console.log(authHeader)
         let res = await axios.get('http://localhost:5000/user/info', authHeader)
         return res.data
     } catch (error) {
@@ -37,6 +39,16 @@ async function getAllUsers() {
 async function deleteById(id) {
     try {
         const res = await axios.delete(`http://localhost:5000/user/${id}`, authHeader);
+        return res
+    } catch (err) {
+        console.log('User not found!', err)
+        return err
+    }
+}
+
+async function logout() {
+    try {
+        const res = await axios.post('http://localhost:5000/user/logout', authHeader);
         return res
     } catch (err) {
         console.log('User not found!', err)
