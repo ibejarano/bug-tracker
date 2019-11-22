@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import { authenticationService } from '../services/authentication-services';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,7 +21,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function AppNavbar(props) {
+  const isLogged = authenticationService.currentUserValue ? true: false;
+  const [logged, setLogged] = useState(isLogged)
   const classes = useStyles();
+
+  const logout = () =>{
+    setLogged(false);
+    props.logout()
+  }
+
   console.log(props)
   return (
     <div className={classes.root}>
@@ -32,20 +41,20 @@ export default function AppNavbar(props) {
           <Typography variant="h6" className={classes.title}>
             Issue Tracker App
           </Typography>
-          {!props.isLogged &&
+          {!logged &&
             <div>
               <Button color="inherit" href='/login'>Login</Button>
               <Button color="inherit" href='/register'>Register</Button>
             </div>
           }
-          {props.isLogged && <div>
+          {logged && <div>
             <Button color="inherit" href="/" >Home
             </Button>
             <Button color="inherit" href="/issue-log" > Issue Log
             </Button>
             <Button color="inherit" href="/report-issue" > Add Issue
             </Button>
-            <Button color="inherit" onClick={props.logout}>Logout
+            <Button color="inherit" onClick={logout}>Logout
             </Button>
           </div>}
         </Toolbar>

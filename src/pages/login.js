@@ -1,5 +1,6 @@
 import React from 'react';
 import { authenticationService } from '../services/authentication-services';
+import {Redirect} from 'react-router-dom';
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -45,8 +46,8 @@ class LoginPage extends React.Component {
 
     render() {
 
+        
         return (
-
             <div>
                 <h1>Login</h1>
                 <form className='form-container' onSubmit={this.onSubmit.bind(this)} >

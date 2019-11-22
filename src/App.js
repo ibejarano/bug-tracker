@@ -1,6 +1,6 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import "./App.css";
-import { Router, Route } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 import { history } from "./helpers/history";
 import AppNavbar from "./components/app-bar";
 
@@ -17,23 +17,33 @@ import { userHandler } from "./handlers/users";
 import { authenticationService } from "./services/authentication-services";
 
 export default function App() {
+  const [ isLogged , setIsLogged] = useState(false);
+
   const logout = async () => {
     try{
       console.log("Logging out");
       const res = await userHandler.logout();
       console.log(res)
       history.push("/login");
+      setIsLogged(false)
     } catch(error){
       console.log(error.toString())
     }
   };
 
-  const isLogged = authenticationService.currentUserValue? true : false;
+  useEffect(()=>{
+    console.log('I am using the effect!')
+  })
+
+  const updateLogin = () => {
+    setIsLogged(true)
+  }
 
   return (
     <div>
-      <Router history={history}>
-        <AppNavbar isLogged={isLogged} logout={logout} />
+      <Router history={history} forceRefresh={true}>
+        <AppNavbar logout={logout} />
+        <Switch>
         {!isLogged && <Route exact path="/" component={HomeGuestPage} />}
         {isLogged && <Route exact path="/" component={HomePage} />}
         <Route path="/login" component={LoginPage} />
@@ -42,6 +52,7 @@ export default function App() {
         <Route path="/register" component={UserRegisterForm} />
         <Route path="/report-issue" component={ReportIssue} />
         <Route path="/issue-edit" component={EditIssue} />
+        </Switch>
       </Router>
     </div>
   );
