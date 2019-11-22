@@ -48,8 +48,14 @@ async function deleteById(id) {
 
 async function logout() {
     try {
-        const res = await axios.post('http://localhost:5000/user/logout', authHeader);
-        return res
+        const params = {token: ''}
+        const res = await axios.put('http://localhost:5000/user/logout/', params, authHeader);
+        if(res.status === 200){
+            authenticationService.removeSession();
+        }
+        else {
+            throw new Error('Error during logout!')
+        }
     } catch (err) {
         console.log('User not found!', err)
         return err

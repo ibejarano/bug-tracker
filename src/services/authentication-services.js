@@ -8,6 +8,7 @@ const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('
 export const authenticationService = {
     login,
     currentUser: currentUserSubject.asObservable(),
+    removeSession,
     get currentUserValue() { return currentUserSubject.value }
 }
 
@@ -17,4 +18,9 @@ async function login(email, password) {
     localStorage.setItem('currentUser', JSON.stringify(res.data.token));
     currentUserSubject.next(res.data.userAuth)
     return res.data.userAuth
+}
+
+function removeSession(){
+    localStorage.removeItem('currentUser');	
+    currentUserSubject.next(null);
 }

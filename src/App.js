@@ -17,10 +17,15 @@ import { userHandler } from "./handlers/users";
 import { authenticationService } from "./services/authentication-services";
 
 export default function App() {
-  const logout = () => {
-    console.log("Logging out");
-    userHandler.logout();
-    history.push("/login");
+  const logout = async () => {
+    try{
+      console.log("Logging out");
+      const res = await userHandler.logout();
+      console.log(res)
+      history.push("/login");
+    } catch(error){
+      console.log(error.toString())
+    }
   };
 
   const isLogged = authenticationService.currentUserValue? true : false;
