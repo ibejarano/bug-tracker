@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function AppNavbar(props) {
   const classes = useStyles();
-
+  console.log(props)
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -32,13 +32,13 @@ export default function AppNavbar(props) {
           <Typography variant="h6" className={classes.title}>
             Issue Tracker App
           </Typography>
-          {!props.currentUser &&
+          {!props.isLogged &&
             <div>
               <Button color="inherit" href='/login'>Login</Button>
               <Button color="inherit" href='/register'>Register</Button>
             </div>
           }
-          {props.currentUser && <div>
+          {props.isLogged && <div>
             <Button color="inherit" href="/" >Home
             </Button>
             <Button color="inherit" href="/issue-log" > Issue Log
