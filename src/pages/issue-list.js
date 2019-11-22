@@ -1,86 +1,100 @@
-import React from 'react';
-import '../style/bug-table.css';
-import { Link } from 'react-router-dom';
-import { issuesHandler } from '../handlers/issues';
+import React, { useState, useEffect } from "react";
+import "../style/bug-table.css";
+import { Link } from "react-router-dom";
+import { issuesHandler } from "../handlers/issues";
 
-class IssueList extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            issueList: [],
-            isAdmin: false
-        }
+import { makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+
+const useStyles = makeStyles({
+  root: {
+    width: "100%",
+    overflowX: "auto"
+  },
+  table: {
+    minWidth: 650
+  }
+});
+
+export default function IssueTable() {
+  const classes = useStyles();
+
+  const [issues, setIssues] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const deleteIssue = id => {
+    issuesHandler
+      .deleteById(id)
+      .then(res => console.log(res))
+      .catch(err => console.log("Error ocurred!", err))
+      .finally(() => setIssues([]));
+  };
+
+  useEffect(() => {
+    if (!issues.length) {
+      issuesHandler
+        .getAll()
+        .then(data => {
+          setIssues(data.issues);
+          setIsAdmin(data.user.isAdmin);
+        })
+        .catch(err => console.log("There is an error", err));
     }
+  });
 
-    refreshIssueList() {
-        issuesHandler.getAll()
-            .then((data) => this.setState({
-                issueList: data.issues,
-                isAdmin: data.user.isAdmin
-            })
-            )
-            .catch(err => console.log('There is an error', err))
-    }
-
-    componentDidMount() {
-        this.refreshIssueList();
-    };
-
-    deleteIssue(id) {
-        issuesHandler.deleteById(id)
-            .then(res => console.log(res))
-            .catch(err => console.log('Error ocurred!', err))
-            .finally(() => this.refreshIssueList())
-    }
-
-    render() {
-        const issueRows = this.state.issueList.map((issueRow, idx) => {
-            let createdDateParse = new Date(Date.parse(issueRow.createdAt))
-            let updatedDateParse = new Date(Date.parse(issueRow.updatedAt))
-
-            return (
-                <tr key={idx}>
-                    <td>
-                        <Link to={`/issue?id=${issueRow._id}`}>
-                            {issueRow.title}
-                        </Link></td>
-                    <td> {issueRow.type} </td>
-                    <td> {issueRow.status} </td>
-                    <td> {issueRow.priority} </td>
-                    <td> {issueRow.assignee} </td>
-                    <td> {createdDateParse.toLocaleString()} </td>
-                    <td> {updatedDateParse.toLocaleString()} </td>
-                    {(this.state.isAdmin || this.state.isDev) &&
-                        <td> <Link to={`/issue-edit?id=${issueRow._id}`}>
-                            Edit
-                   </Link> </td>}
-                    {(this.state.isAdmin) && <td>
-                        <button onClick={(props) => { this.deleteIssue(issueRow._id) }}
-                        >Delete</button> </td>}
-                </tr>
-            );
-        });
-        return (
-            <table className="bug-table">
-                <thead>
-                    <tr className="bug-table-row" >
-                        <th>Title</th>
-                        <th>Type</th>
-                        <th>Status</th>
-                        <th>Priority</th>
-                        <th>Assignee</th>
-                        <th>Creation date</th>
-                        <th>Last Update</th>
-                        {(this.state.isAdmin || this.state.isDev) && <th>Edit</th>}
-                        {(this.state.isAdmin) && <th> Delete </th>}
-                    </tr>
-                </thead>
-                <tbody>
-                    {issueRows}
-                </tbody>
-            </table>
-        );
-    }
-};
-
-export default IssueList;
+  return (
+    <Paper className={classes.root}>
+      <Table className={classes.table} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Issue Title</TableCell>
+            <TableCell align="right">Status</TableCell>
+            <TableCell align="right">Type</TableCell>
+            <TableCell align="right">Priority</TableCell>
+            <TableCell align="right">Assignee</TableCell>
+            <TableCell align="right">Created At</TableCell>
+            <TableCell align="right">Update At</TableCell>
+            <TableCell align="right"> </TableCell>
+            <TableCell align="right"> </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {issues.map(issue => (
+            <TableRow key={issue.title}>
+              <TableCell component="th" scope="row">
+                {issue.title}
+              </TableCell>
+              <TableCell align="right">{issue.type}</TableCell>
+              <TableCell align="right">{issue.status}</TableCell>
+              <TableCell align="right">{issue.priority}</TableCell>
+              <TableCell align="right">{issue.assignee}</TableCell>
+              <TableCell align="right">{issue.createdAt}</TableCell>
+              <TableCell align="right">{issue.updatedAt}</TableCell>
+              {isAdmin && (
+                <div>
+                  <TableCell align="right">
+                    <Link to={`/issue-edit?id=${issue._id}`}>Edit</Link>
+                  </TableCell>
+                  <TableCell align="right">
+                    <button
+                      onClick={() => {
+                        deleteIssue(issue._id);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </TableCell>
+                </div>
+              )}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </Paper>
+  );
+}
