@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import { authenticationService } from '../services/authentication-services';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,12 +20,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function AppNavbar(props) {
-  const isLogged = authenticationService.currentUserValue ? true: false;
-  const [logged, setLogged] = useState(isLogged)
   const classes = useStyles();
 
   const logout = () =>{
-    setLogged(false);
     props.logout()
   }
 
@@ -41,13 +37,13 @@ export default function AppNavbar(props) {
           <Typography variant="h6" className={classes.title}>
             Issue Tracker App
           </Typography>
-          {!logged &&
+          {!props.logged &&
             <div>
               <Button color="inherit" href='/login'>Login</Button>
               <Button color="inherit" href='/register'>Register</Button>
             </div>
           }
-          {logged && <div>
+          {props.logged && <div>
             <Button color="inherit" href="/" >Home
             </Button>
             <Button color="inherit" href="/issue-log" > Issue Log

@@ -8,16 +8,12 @@ export default function HomePage() {
     const [userData, setUserData] = useState('');
 
     useEffect(() => {
-        if (!userData) {
+        if(!userData)
             userHandler.getUserInfo().then(data => {
                 setUserData(data)
             })
-        }
-        else {
-            console.log('User Already setted', userData)
-        }
-
-    })
+            .catch(err => console.log(err.toString()))
+    },[userData])
     
     return (
         <div>

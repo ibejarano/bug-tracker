@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { Router, Route, Switch } from "react-router-dom";
 import { history } from "./helpers/history";
@@ -17,41 +17,46 @@ import { userHandler } from "./handlers/users";
 import { authenticationService } from "./services/authentication-services";
 
 export default function App() {
-  const [ isLogged , setIsLogged] = useState(false);
+  const init = authenticationService ? true : false;
+  const [isLogged, setIsLogged] = useState(init);
 
   const logout = async () => {
-    try{
+    try {
       console.log("Logging out");
       const res = await userHandler.logout();
-      console.log(res)
+      console.log(res);
       history.push("/login");
-      setIsLogged(false)
-    } catch(error){
-      console.log(error.toString())
+      setIsLogged(false);
+    } catch (error) {
+      console.log(error.toString());
     }
   };
 
-  useEffect(()=>{
-    console.log('I am using the effect!')
-  })
-
   const updateLogin = () => {
-    setIsLogged(true)
-  }
+    setIsLogged(true);
+    // history.push("/");
+    window.location = '/'
+  };
 
   return (
     <div>
-      <Router history={history} forceRefresh={true}>
-        <AppNavbar logout={logout} />
+      <AppNavbar logout={logout} logged={isLogged} />
+      <Router history={history}>
         <Switch>
-        {!isLogged && <Route exact path="/" component={HomeGuestPage} />}
-        {isLogged && <Route exact path="/" component={HomePage} />}
-        <Route path="/login" component={LoginPage} />
-        <Route path="/issue" component={IssueDetails}></Route>
-        <Route path="/issue-log" component={IssueList} />
-        <Route path="/register" component={UserRegisterForm} />
-        <Route path="/report-issue" component={ReportIssue} />
-        <Route path="/issue-edit" component={EditIssue} />
+          {!isLogged && <Route exact path="/" component={HomeGuestPage} />}
+          {isLogged && <Route exact path="/" component={HomePage} />}
+          {/* <Route path="/login" component={LoginPage} /> */}
+          <Route
+            path="/login"
+            render={() => (
+              <LoginPage updateLogin={updateLogin} history={history} />
+            )}
+          />
+          <Route path="/issue" component={IssueDetails}></Route>
+          <Route path="/issue-log" component={IssueList} />
+          <Route path="/register" component={UserRegisterForm} />
+          <Route path="/report-issue" component={ReportIssue} />
+          <Route path="/issue-edit" component={EditIssue} />
         </Switch>
       </Router>
     </div>

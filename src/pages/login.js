@@ -1,72 +1,61 @@
-import React from 'react';
-import { authenticationService } from '../services/authentication-services';
-import {Redirect} from 'react-router-dom';
+import React, { useState } from "react";
+import { authenticationService } from "../services/authentication-services";
 
-class LoginPage extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: '',
-            password: ''
-        }
+export default function LoginPage(props) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-        if (authenticationService.currentUserValue) {
-            this.props.history.push('/');
-        }
+  const handlerEmail = e => {
+    setEmail(e.target.value);
+  };
+
+  const handlerPassword = e => {
+    setPassword(e.target.value);
+  };
+
+  const onSubmit = async e => {
+    e.preventDefault();
+    const params = { email, password };
+    try {
+      const res = await authenticationService.login(
+        params.email,
+        params.password
+      );
+			console.log("Response from server", res);
+			props.updateLogin()
+    } catch (error) {
+      console.log(error.toString());
+      setPassword("");
+      props.history.push("/login");
     }
+  };
 
-    onEmailChange(e) {
-        this.setState({
-            email: e.target.value
-        })
-    }
-
-    onPasswordChange(e) {
-        this.setState({
-            password: e.target.value,
-        })
-    };
-
-    onSubmit(e) {
-        e.preventDefault();
-
-        const params = { ...this.state }
-
-        authenticationService.login(params.email, params.password)
-            .then((res) => {
-                console.log('Succesful login!')
-                console.log('Response from server! ', res);
-                const { from } = this.props.location.state || { from: { pathname: '/' } };
-                this.props.history.push(from);
-            })
-            .catch(err => {
-                console.log(err); this.props.history.push('/login')
-            });
-    }
-
-    render() {
-
-        
-        return (
-            <div>
-                <h1>Login</h1>
-                <form className='form-container' onSubmit={this.onSubmit.bind(this)} >
-                    <label>Email: </label>
-                    <input name='email' type='email' placeholder='Email'
-                        onChange={this.onEmailChange.bind(this)}
-                        value={this.state.email} required
-                    /><br />
-                    <label>Password: </label>
-                    <input name='password' type='password' placeholder='Password'
-                        onChange={this.onPasswordChange.bind(this)}
-                        value={this.state.password} required
-                    /><br />
-                    <button type='submit'>Login</button>
-                </form>
-            </div>
-
-        )
-    }
-};
-
-export default LoginPage;
+  return (
+    <div>
+      <h1>Login</h1>
+      <form className="form-container" onSubmit={onSubmit}>
+        <label>Email: </label>
+        <input
+          name="email"
+          type="email"
+          placeholder="Email"
+          onChange={handlerEmail}
+          value={email}
+          required
+        />
+        <br />
+        <label>Password: </label>
+        <input
+          name="password"
+          type="password"
+          placeholder="Password"
+          onChange={handlerPassword}
+          value={password}
+          required
+        />
+        <br />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  );
+}
