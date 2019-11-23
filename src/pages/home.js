@@ -23,12 +23,6 @@ export default function HomePage() {
 
     return (
         <div>
-            {userData &&
-                <div>
-                    <h1> Bienvenido, {userData.username} ! </h1>
-                </div>
-            }
-
             {userData.isAdmin && 
                 <AdminDashboard issues={issues}/>
             }

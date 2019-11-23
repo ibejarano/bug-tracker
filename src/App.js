@@ -40,7 +40,7 @@ export default function App() {
 
   return (
     <div>
-      <AppNavbar logout={logout} logged={isLogged} />
+      {/* <AppNavbar logout={logout} logged={isLogged} /> */}
       <Router history={history}>
         <Switch>
           {!isLogged && <Route exact path="/" component={HomeGuestPage} />}
