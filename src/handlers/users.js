@@ -17,7 +17,6 @@ export const userHandler = {
 
 async function getUserInfo() {
     try {
-        console.log(authHeader)
         let res = await axios.get('http://localhost:5000/user/info', authHeader)
         return res.data
     } catch (error) {

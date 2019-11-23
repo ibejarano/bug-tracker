@@ -25,8 +25,6 @@ export default function AppNavbar(props) {
   const logout = () =>{
     props.logout()
   }
-
-  console.log(props)
   return (
     <div className={classes.root}>
       <AppBar position="static">

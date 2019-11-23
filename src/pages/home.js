@@ -6,15 +6,21 @@ import { userHandler } from '../handlers/users';
 export default function HomePage() {
 
     const [userData, setUserData] = useState('');
+    const [issues, setIssues] = useState([])
 
     useEffect(() => {
         if(!userData)
             userHandler.getUserInfo().then(data => {
-                setUserData(data)
+                setUserData(data.user);
+                if (data.issues.length){
+                    setIssues(data.issues)
+                }
             })
             .catch(err => console.log(err.toString()))
     },[userData])
     
+    console.log(userData)
+
     return (
         <div>
             {userData &&
@@ -24,10 +30,10 @@ export default function HomePage() {
             }
 
             {userData.isAdmin && 
-                <AdminDashboard />
+                <AdminDashboard issues={issues}/>
             }
             {!userData.isAdmin && 
-                <UserDashboard />
+                <UserDashboard issues={issues} />
             }
             {
                 !userData &&

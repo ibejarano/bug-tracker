@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import UsersList from './user-list';
 
-export default function AdminDashboard() {
+export default function AdminDashboard(props) {
 
     const [usersList, setUsersList] = useState(null);
 
@@ -9,11 +9,9 @@ export default function AdminDashboard() {
         if (usersList){
             setUsersList(null)
         } else{
-            setUsersList(['Admin','test1','test2'])
+            setUsersList([])
         }
     }
-
-    console.log(usersList)
 
     return (
         <div>
@@ -27,6 +25,16 @@ export default function AdminDashboard() {
                 <button onClick={getUsers}>Click me to see all the users!</button>
             </div>
             {usersList && <UsersList />}
+            <div>
+                <h3>My issues</h3>
+                <ul>
+                    {props.issues.map((issue,idx)=>{
+                        return(
+                            <li key={idx}>{issue.title}</li>
+                        )
+                    })}
+                </ul>
+            </div>
         </div>
     )
 }
