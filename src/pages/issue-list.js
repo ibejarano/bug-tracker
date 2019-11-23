@@ -76,10 +76,10 @@ export default function IssueTable() {
               <TableCell align="right">{issue.createdAt}</TableCell>
               <TableCell align="right">{issue.updatedAt}</TableCell>
               {isAdmin && (
-                <div>
                   <TableCell align="right">
                     <Link to={`/issue-edit?id=${issue._id}`}>Edit</Link>
-                  </TableCell>
+              </TableCell>) }
+              {isAdmin && (
                   <TableCell align="right">
                     <button
                       onClick={() => {
@@ -89,7 +89,6 @@ export default function IssueTable() {
                       Delete
                     </button>
                   </TableCell>
-                </div>
               )}
             </TableRow>
           ))}
