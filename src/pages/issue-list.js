@@ -72,7 +72,10 @@ export default function IssueTable() {
               <TableCell align="right">{issue.type}</TableCell>
               <TableCell align="right">{issue.status}</TableCell>
               <TableCell align="right">{issue.priority}</TableCell>
-              <TableCell align="right">{issue.assignee.username}</TableCell>
+              { issue.assignee? <TableCell align="right">{issue.assignee.username}</TableCell>:
+              <TableCell align="right">Not assignee</TableCell>
+              }
+              
               <TableCell align="right">{issue.createdAt}</TableCell>
               <TableCell align="right">{issue.updatedAt}</TableCell>
               {isAdmin && (
