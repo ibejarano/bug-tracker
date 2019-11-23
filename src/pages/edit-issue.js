@@ -105,8 +105,6 @@ export default function EditIssue(props) {
     const issueTypeOptions = ['Bug', 'Task', 'Enhancement', 'Proposal'].map(createOptionTags);
     const priorityOptions = ['Low', 'Medium', 'High', 'Urgent!'].map(createOptionTags);
     const statusOptions = ['New', 'Open', 'Closed', 'Paused'].map(createOptionTags);
-    const assigneesOptions = assignees.map((assignee, idx) => createOptionTags(assignee.username, idx));
-
 
     return (
         <form className='form-container' onSubmit={onSubmit} >
@@ -175,7 +173,12 @@ export default function EditIssue(props) {
                     <MenuItem value="">
                         <em>None</em>
                     </MenuItem>
-                    {assigneesOptions}
+                    {
+                    assignees.map((assignee, idx) => {
+                    return(
+                        <MenuItem key={idx} value={assignee._id}> {assignee.username} </MenuItem>
+                    )
+                    })}
                 </Select>
                 <FormHelperText>Required</FormHelperText>
             </FormControl>
