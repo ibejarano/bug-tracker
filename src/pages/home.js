@@ -1,40 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import AdminDashboard from '../components/admin/dashboard';
-import UserDashboard from '../components/user-dashboard';
-import { userHandler } from '../handlers/users';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
 
-export default function HomePage() {
+import Layout from "../components/layout/main-layout";
 
-    const [userData, setUserData] = useState('');
-    const [issues, setIssues] = useState([])
+import IssueList from "../pages/issue-list";
+import IssueDetails from "../pages/issue";
+import ReportIssue from "../pages/report-issue";
+import EditIssue from "../pages/edit-issue";
+import UserList from "../components/admin/user-list"
 
-    useEffect(() => {
-        if(!userData)
-            userHandler.getUserInfo().then(data => {
-                setUserData(data.user);
-                if (data.issues.length){
-                    setIssues(data.issues)
-                }
-            })
-            .catch(err => console.log(err.toString()))
-    },[userData])
-    
-    console.log(userData)
 
-    return (
-        <div>
-            {userData.isAdmin && 
-                <AdminDashboard issues={issues}/>
-            }
-            {!userData.isAdmin && 
-                <UserDashboard issues={issues} />
-            }
-            {
-                !userData &&
-                <div>
-                    <h1>Loading...</h1>
-                </div>
-            }
-        </div>
-    )
+
+export default function Dashboard({ match }) {
+
+	const HomeDashboard = ( ) => {
+	return(
+		<div>
+			<h1>Home sweet home!</h1>
+		</div>
+	)
 }
+  return (
+    <Layout matchUrl={match.path}>
+      <Switch>
+        <Route exact path={`${match.path}`} component={HomeDashboard} />
+        <Route path={`${match.path}/issue`} component={IssueDetails} />
+        <Route exact path={`${match.path}/issue-log`} component={IssueList} />
+				<Route exact path={`${match.path}/list`} component={UserList} />
+        <Route
+          exact
+          path={`${match.path}/report-issue`}
+          component={ReportIssue}
+        />
+        <Route path={`${match.path}/issue-edit`} component={EditIssue} />
+      </Switch>
+    </Layout>
+  );
+}
+

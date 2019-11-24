@@ -59,11 +59,12 @@ export default function LoginPage(props) {
         params.password
       );
       console.log("Response from server", res);
-      props.updateLogin();
+      //props.updateLogin();
+      props.history.push("/user");
     } catch (error) {
       console.log(error.toString());
       setPassword("");
-      props.history.push("/login");
+      props.history.push("/");
     }
   };
 

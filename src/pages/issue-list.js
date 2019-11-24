@@ -80,7 +80,7 @@ export default function IssueTable() {
               <TableCell align="right">{issue.updatedAt}</TableCell>
               {isAdmin && (
                   <TableCell align="right">
-                    <Link to={`/issue-edit?id=${issue._id}`}>Edit</Link>
+                    <Link to={`/user/issue-edit?id=${issue._id}`}>Edit</Link>
               </TableCell>) }
               {isAdmin && (
                   <TableCell align="right">
