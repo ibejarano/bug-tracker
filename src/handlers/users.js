@@ -55,8 +55,8 @@ async function logout() {
         else {
             throw new Error('Error during logout!')
         }
-    } catch (err) {
-        console.log('User not found!', err)
-        return err
+    } catch (error) {
+        console.log('User not found!', error)
+        return error
     }
 }

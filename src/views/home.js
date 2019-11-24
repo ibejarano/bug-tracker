@@ -8,19 +8,14 @@ import IssueDetails from "../components/issue/details";
 import ReportIssue from "../components/issue/add";
 import EditIssue from "../components/issue/edit";
 import UserList from "../components/admin/user-list";
+import Dashboard from '../components/user/dashboard';
 
-export default function Dashboard({ match }) {
-  const HomeDashboard = () => {
-    return (
-      <div>
-        <h1>Home sweet home!</h1>
-      </div>
-    );
-  };
+export default function Home({ match }) {
+
   return (
     <Layout matchUrl={match.path}>
       <Switch>
-        <Route exact path={`${match.path}`} component={HomeDashboard} />
+        <Route exact path={`${match.path}`} component={Dashboard} />
         <Route path={`${match.path}/issue`} component={IssueDetails} />
         <Route exact path={`${match.path}/issue-log`} component={IssueList} />
         <Route exact path={`${match.path}/list`} component={UserList} />
