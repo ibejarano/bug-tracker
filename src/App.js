@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 import { history } from "./helpers/history";
 import { Router, Route, Switch } from "react-router-dom";
 
 // // Components
-import UserRegisterForm from "./pages/register";
-import Login from "./pages/login";
-import HomePage from "./pages/home";
-import { userHandler } from "./handlers/users";
+import UserRegisterForm from "./views/register";
+import Login from "./views/login";
+import HomePage from "./views/home";
 
 export default function App() {
 

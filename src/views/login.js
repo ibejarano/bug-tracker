@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { authenticationService } from "../services/authentication-services";
+import { authenticationService } from "../handlers/authentication";
 
 // Material ui components
 import Avatar from "@material-ui/core/Avatar";
@@ -108,7 +108,6 @@ export default function LoginPage(props) {
             fullWidth
             variant="contained"
             color="primary"
-
             className={classes.submit}
           >
             Log In

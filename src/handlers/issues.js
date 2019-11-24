@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { authenticationService } from '../services/authentication-services';
+import { authenticationService } from './authentication';
 
 const authHeader  = {
     headers: {

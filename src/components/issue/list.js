@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "../style/bug-table.css";
 import { Link } from "react-router-dom";
-import { issuesHandler } from "../handlers/issues";
+import { issuesHandler } from "../../handlers/issues";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";

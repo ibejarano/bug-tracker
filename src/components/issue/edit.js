@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { issuesHandler } from "../handlers/issues";
-import { userHandler } from "../handlers/users";
+import { issuesHandler } from "../../handlers/issues";
+import { userHandler } from "../../handlers/users";
 
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";

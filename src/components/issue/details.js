@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { issuesHandler } from '../handlers/issues';
-import BugInfoCard from '../components/cards/bug-info-card';
-import BugCommentCard from '../components/cards/bug-comment-card';
-import BugAddComment from '../components/bug-add-comment';
+import { issuesHandler } from '../../handlers/issues';
+import BugInfoCard from './cards/bug-info-card';
+import BugCommentCard from './cards/bug-comment-card';
+import BugAddComment from './add-comment';
 
 export default function BugPage(props) {
     const [issue, setIssue] = useState(null);
