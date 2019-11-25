@@ -99,7 +99,7 @@ export default function UserHome(props) {
   // card with a to-do?
   const classes = useStyles();
   const [issues, setIssues] = useState([]);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({username:'',email:'',activities:[]});
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   useEffect(() => {
@@ -111,7 +111,7 @@ export default function UserHome(props) {
     console.log("effect running");
     fetchData();
   }, []);
-
+  console.log(user)
   return (
     <Grid container spacing={3}>
       {/* Recent Deposits */}
@@ -126,7 +126,12 @@ export default function UserHome(props) {
       <Grid item xs={12} md={8} lg={9}>
         <Paper className={fixedHeightPaper}>
           <h2>Last activity</h2>
-          <p>Under construction...</p>
+          {/* <p>Under construction...</p> */}
+          <ul>
+          {user.activities.map((activity,idx)=>{
+            return (<li>{activity}</li>)
+          })}
+          </ul>
         </Paper>
       </Grid>
       {/* Recent Orders */}
