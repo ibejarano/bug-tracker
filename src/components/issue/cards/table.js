@@ -31,13 +31,13 @@ export default function IssueTable({
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Issue Title</TableCell>
-            <TableCell align="right">Status</TableCell>
-            <TableCell align="right">Type</TableCell>
-            <TableCell align="right">Priority</TableCell>
-            {showAssignee && <TableCell align="right">Assignee</TableCell>}
-            <TableCell align="right">Created At</TableCell>
-            <TableCell align="right">Update At</TableCell>
+            <TableCell variant='head'  >Issue Title</TableCell>
+            <TableCell variant='head' align="right">Status</TableCell>
+            <TableCell variant='head' align="right">Type</TableCell>
+            <TableCell variant='head' align="right">Priority</TableCell>
+            {showAssignee && <TableCell variant='head' align="right">Assignee</TableCell>}
+            <TableCell variant='head' align="right">Created At</TableCell>
+            <TableCell variant='head' align="right">Update At</TableCell>
             {isAdmin && <TableCell align="right"> </TableCell>}
             {isAdmin && <TableCell align="right"> </TableCell>}
           </TableRow>
@@ -46,7 +46,9 @@ export default function IssueTable({
           {issues.map(issue => (
             <TableRow key={issue.title} hover>
               <TableCell component="th" scope="row">
+                <Link to={`/user/issue?q=${issue._id}`}>
                 {issue.title}
+                </Link>
               </TableCell>
               <TableCell align="right">{issue.type}</TableCell>
               <TableCell align="right">{issue.status}</TableCell>
