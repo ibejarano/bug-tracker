@@ -16,7 +16,8 @@ import Link from "@material-ui/core/Link";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import { mainListItems, secondaryListItems, logoutItem } from "./listItems";
+import { mainListItems, adminListItems, logoutItem } from "./listItems";
+import { authenticationService } from "../../handlers/authentication";
 
 function Copyright() {
   return (
@@ -122,7 +123,7 @@ export default function Dashboard(props) {
     setOpen(false);
   };
 
-  console.log(props.matchUrl)
+  const isAdmin = authenticationService.isAdmin;
 
   return (
     <div className={classes.root}>
@@ -174,8 +175,12 @@ export default function Dashboard(props) {
         </div>
         <Divider />
         <List>{mainListItems(props.matchUrl)}</List>
-        <Divider />
-        <List>{secondaryListItems}</List>
+        {isAdmin && (
+          <div>
+            <Divider />
+            <List>{adminListItems(props.matchUrl)}</List>
+          </div>
+        )}
         <Divider />
         <List>{logoutItem}</List>
       </Drawer>

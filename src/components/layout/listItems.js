@@ -8,21 +8,15 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import PeopleIcon from "@material-ui/icons/People";
 import ListAltIcon from "@material-ui/icons/ListAlt";
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import BarChartIcon from "@material-ui/icons/BarChart";
-import AssignmentIcon from "@material-ui/icons/Assignment";
 import { userHandler } from "../../handlers/users";
 
 const mainList = [
   {
-    name: 'Home',
-    path: '',
+    name: "Home",
+    path: "",
     icon: <DashboardIcon />
-  },
-  {
-    name: "Users",
-    path: 'list',
-    icon: <PeopleIcon />
   },
   {
     name: "Issues Log",
@@ -33,21 +27,22 @@ const mainList = [
     name: "Report Issue",
     path: "report-issue",
     icon: <BarChartIcon />
-  },
-  {
-    name: "Reports",
-    path: "",
-    icon: <BarChartIcon />
   }
-]
+];
 
-function MaterialIconsList({name, path,icon} , idx , absPath) {
+const adminList = [
+  {
+    name: "Users",
+    path: "list",
+    icon: <PeopleIcon />
+  }
+];
+
+function MaterialIconsList({ name, path, icon }, idx, absPath) {
   return (
     <Link to={`${absPath}/${path}`} key={idx}>
       <ListItem button>
-        <ListItemIcon>
-          {icon}
-        </ListItemIcon>
+        <ListItemIcon>{icon}</ListItemIcon>
         <ListItemText primary={name} />
       </ListItem>
     </Link>
@@ -59,41 +54,28 @@ async function logout() {
     console.log("Logging out");
     const res = await userHandler.logout();
     console.log(res);
-    window.location = '/'
+    window.location = "/";
   } catch (error) {
     console.log(error.toString());
   }
-};
+}
 
-export function mainListItems(absPath){ return(
-  <div>
-    {mainList.map((item , idx) => MaterialIconsList(item,idx, absPath) )}
-  </div>
-)};
+export function mainListItems(absPath) {
+  return (
+    <div>
+      {mainList.map((item, idx) => MaterialIconsList(item, idx, absPath))}
+    </div>
+  );
+}
 
-export const secondaryListItems = (
-  <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Current month" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Last quarter" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItem>
-  </div>
-);
+export function adminListItems(absPath) {
+  return (
+    <div>
+      <ListSubheader inset>Admin Panel</ListSubheader>
+      {adminList.map((item, idx) => MaterialIconsList(item, idx, absPath))}
+    </div>
+  );
+}
 
 export const logoutItem = (
   <div>
@@ -105,4 +87,3 @@ export const logoutItem = (
     </ListItem>
   </div>
 );
-

@@ -10,6 +10,8 @@ export default function UsersList() {
       userHandler.getAllUsers().then(data => {
         setUsers(data);
         setLoadingUsers(false);
+      }).catch(error => {
+        window.location = '/user'
       });
   });
 
