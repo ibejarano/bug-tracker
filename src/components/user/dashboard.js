@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 
-import IssueList from '../issue/cards/table';
+import IssueList from "../issue/cards/table";
 
 const drawerWidth = 240;
 
@@ -99,7 +99,7 @@ export default function UserHome(props) {
   // card with a to-do?
   const classes = useStyles();
   const [issues, setIssues] = useState([]);
-  const [user, setUser] = useState({username:'',email:'',activities:[]});
+  const [user, setUser] = useState({ username: "", email: "", activities: [] });
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   useEffect(() => {
@@ -111,15 +111,15 @@ export default function UserHome(props) {
     console.log("effect running");
     fetchData();
   }, []);
-  console.log(user)
+  console.log(user);
   return (
     <Grid container spacing={3}>
       {/* Recent Deposits */}
       <Grid item xs={12} md={4} lg={3}>
         <Paper className={fixedHeightPaper}>
-          <h2>User info</h2>
-          <h3>Username: {user.username}</h3>
-          <h3>Email: {user.email}</h3>
+          <Typography>User info</Typography>
+          <Typography>Username: {user.username}</Typography>
+          <Typography>Email: {user.email}</Typography>
         </Paper>
       </Grid>
       {/* Chart */}
@@ -128,15 +128,15 @@ export default function UserHome(props) {
           <h2>Last activity</h2>
           {/* <p>Under construction...</p> */}
           <ul>
-          {user.activities.map((activity,idx)=>{
-            return (<li>{activity}</li>)
-          })}
+            {user.activities.map((activity, idx) => {
+              return <li key={idx}>{activity}</li>;
+            })}
           </ul>
         </Paper>
       </Grid>
       {/* Recent Orders */}
       <Grid item xs={12}>
-          <IssueList issues={issues} showAssignee={false} />
+        <IssueList issues={issues} showAssignee={false} />
       </Grid>
     </Grid>
   );

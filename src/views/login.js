@@ -60,7 +60,7 @@ export default function LoginPage(props) {
       );
       console.log("Response from server", res);
       //props.updateLogin();
-      props.history.push("/user");
+      window.location = '/user'
     } catch (error) {
       console.log(error.toString());
       setPassword("");
