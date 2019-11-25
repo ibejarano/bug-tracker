@@ -9,10 +9,8 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
-import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 
@@ -138,11 +136,8 @@ export default function EditIssue(props) {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
         <Typography component="h1" variant="h5">
-          Submit New Issue
+          Edit Issue
         </Typography>
         <form className={classes.form} onSubmit={onSubmit}>
           <FormControl className={classes.formControl} fullWidth required>
@@ -228,7 +223,7 @@ export default function EditIssue(props) {
             color="primary"
             className={classes.submit}
           >
-            Submit new bug
+            Confirm Changes
           </Button>
         </form>
       </div>
