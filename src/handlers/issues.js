@@ -22,7 +22,7 @@ async function getAll(){
         console.log('All the data is here:',res.data)
         return res.data
     } catch (err) {
-        console.log('Error getting issues', err)
+        window.location ='/'
         return err
     }
 }

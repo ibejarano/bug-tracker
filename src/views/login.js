@@ -34,13 +34,20 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(1)
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
+    margin: theme.spacing(1, 0, 2)
+  },
+  errorText:{
+    color: 'red',
+    backgroundColor: 'pink',
+    border: '1px solid',
+    padding: '3px'
   }
 }));
 
 export default function LoginPage(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [badLogin, setBadLogin] = useState(false);
   const classes = useStyles();
   const handleEmail = e => {
     setEmail(e.target.value);
@@ -64,6 +71,7 @@ export default function LoginPage(props) {
     } catch (error) {
       console.log(error.toString());
       setPassword("");
+      setBadLogin(true)
       props.history.push("/");
     }
   };
@@ -103,6 +111,9 @@ export default function LoginPage(props) {
             value={password}
             onChange={handlePassword}
           />
+          {
+            badLogin && <p className={classes.errorText}>Invalid user or password. Try again.</p>
+          }
           <Button
             type="submit"
             fullWidth
@@ -119,7 +130,7 @@ export default function LoginPage(props) {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="/register" variant="body2">
+              <Link href="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

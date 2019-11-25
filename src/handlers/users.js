@@ -21,6 +21,7 @@ async function getUserInfo() {
         return res.data
     } catch (error) {
         console.log('Error ocurred get user info.', error.toString())
+        window.location = '/'
         return error
     }
 }
