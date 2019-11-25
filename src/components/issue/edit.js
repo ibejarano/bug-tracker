@@ -97,9 +97,8 @@ export default function EditIssue(props) {
       assignee
     };
     try {
-      const res = issuesHandler.update(id, params);
-      console.log(res);
-      props.history.push("/issue-log");
+      await issuesHandler.update(id, params);
+      props.history.push("/user/issue-log");
     } catch (error) {
       console.log("And error ocurred during update", error.toString());
     }

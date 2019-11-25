@@ -5,6 +5,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Chip from "@material-ui/core/Chip";
+import ChipsArray from "./bug-info-card";
 
 const useStyles = makeStyles({
   card: {
@@ -21,6 +22,7 @@ const useStyles = makeStyles({
 
 export default function CommentsCard({ comments, assignee }) {
   const classes = useStyles();
+  console.log(comments)
   const ListOfCommentCards = comments.map(comment => {
     return (
       <Card className={classes.card} key={comment._id}>
@@ -37,6 +39,7 @@ export default function CommentsCard({ comments, assignee }) {
           <Typography variant="body1" component="p">
             {comment.text}
           </Typography>
+          {comment.updateStatus && <ChipsArray info={comment.updateStatus} />}
         </CardContent>
       </Card>
     );

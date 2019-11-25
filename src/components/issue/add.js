@@ -93,7 +93,7 @@ export default function ReportBugForm(props) {
       // TODO use this to display some info!
       console.log(res);
       if (res.status === 200) {
-        props.history.push("/issue-log");
+        props.history.push("/user/issue-log");
       }
     } catch (error) {
       console.log(error.toString());
