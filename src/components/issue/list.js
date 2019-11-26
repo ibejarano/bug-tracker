@@ -22,7 +22,7 @@ export default function IssueList() {
         .getAll()
         .then(data => {
           setIssues(data.issues);
-          setIsAdmin(data.user.isAdmin);
+          setIsAdmin(data.user.role === 0? true:false);
         })
         .catch(err => console.log("There is an error", err));
   },[]);

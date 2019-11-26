@@ -11,7 +11,7 @@ export default function BugPage(props) {
     const res = await issuesHandler.getById(id);
     console.log("Received issue info", res);
     setIssue(res.issue);
-    setIsAdmin(res.user.isAdmin);
+    setIsAdmin(res.user.role === 0? true: false);
     if (res.issue.comments.length) {
       setCommentsCards(
         <BugCommentCard

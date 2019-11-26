@@ -17,7 +17,7 @@ async function login(email, password) {
     const params = { email, password }
     let res = await axios.post('http://localhost:5000/login', params).catch(err => console.log('Some error!', err));
     localStorage.setItem('currentUser', JSON.stringify(res.data.token));
-    localStorage.setItem('isAdmin', JSON.stringify(res.data.userAuth.isAdmin));
+    localStorage.setItem('isAdmin', JSON.stringify(res.data.userAuth.role === 0? true: false ));
     currentUserSubject.next(res.data.userAuth)
     return res.data.userAuth
 }
