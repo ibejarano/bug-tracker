@@ -13,7 +13,7 @@ export default function MaterialTableDemo() {
     {
       title: "Role",
       field: "role",
-      lookup: { 0: "Admin", 1: "User", 99: " " }
+      lookup: { 0: "Administrator", 1: "User", 2: "Developer", 99: " " }
     }
   ];
 
@@ -23,18 +23,18 @@ export default function MaterialTableDemo() {
     try {
       const id = oldData._id;
       await userHandler.update(id, newData);
-      setLoadingUsers(true)
+      setLoadingUsers(true);
     } catch (error) {
       console.log("Error during user update!");
       console.log(error.toString());
     }
   };
 
-  const handleDelete = async (userData) => {
+  const handleDelete = async userData => {
     try {
       const id = userData._id;
       await userHandler.deleteById(id);
-      setLoadingUsers(true)
+      setLoadingUsers(true);
     } catch (error) {
       console.log("Error during user delete!");
       console.log(error.toString());
@@ -42,19 +42,19 @@ export default function MaterialTableDemo() {
   };
 
   useEffect(() => {
-      if (loadingUsers){
-          console.log("Running Effect again");
-          userHandler
-          .getAllUsers()
-          .then(data => {
-              setUserData(data);
-              setLoadingUsers(false);
-            })
-            .catch(error => {
-                console.log(error.toString());
-                window.location = "/user";
-            });
-        }
+    if (loadingUsers) {
+      console.log("Running Effect again");
+      userHandler
+        .getAllUsers()
+        .then(data => {
+          setUserData(data);
+          setLoadingUsers(false);
+        })
+        .catch(error => {
+          console.log(error.toString());
+          window.location = "/user";
+        });
+    }
   }, [loadingUsers]);
 
   return (

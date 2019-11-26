@@ -12,7 +12,8 @@ export const userHandler = {
   getAllUsers,
   deleteById,
   logout,
-  update
+  update,
+  changePassword
 };
 
 async function getUserInfo() {
@@ -71,6 +72,18 @@ async function logout() {
 async function update(id , params) {
   try {
     const res = await axios.put(`http://localhost:5000/user/${id}`,params, authHeader);
+    console.log(res);
+    return res
+  } catch (error) {
+    console.log(error.String());
+    return error;
+  }
+}
+
+
+async function changePassword(id , params) {
+  try {
+    const res = await axios.put(`http://localhost:5000/user/change-password/${id}`,params, authHeader);
     console.log(res);
     return res
   } catch (error) {

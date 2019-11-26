@@ -102,6 +102,29 @@ export default function UserHome(props) {
   const [user, setUser] = useState({ username: "", email: "", activities: [] });
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+  const [password, setPassword] = useState('');
+  const [passwordConf, setPasswordConf] = useState('');
+
+  const handlePasswordChange = (e) =>{
+    setPassword(e.target.value )
+  }
+
+  const handlePasswordConfChange = (e) =>{
+    setPasswordConf(e.target.value )
+  }
+
+  const handleSubmit = async (e) => {
+    try {
+      console.log("Changing password")
+      e.preventDefault();
+      const id = user._id
+      const params = {password, passwordConf}
+      await userHandler.changePassword(id, params)
+    } catch(error){
+      console.log("Error changing password:", error.toString())
+    }
+  }
+
   useEffect(() => {
     async function fetchData() {
       const res = await userHandler.getUserInfo();
@@ -122,9 +145,16 @@ export default function UserHome(props) {
           <Typography>User info</Typography>
           <Typography>Username: {user.username}</Typography>
           <Typography>Email: {user.email}</Typography>
+
         </Paper>
+        <form onSubmit={handleSubmit}>
+            <input type="password" name="password" onChange={handlePasswordChange} value={password} />
+            <input type="password" name="passwordConf" onChange={handlePasswordConfChange} value={passwordConf}/>
+            <button type='submit' >Change Password</button>
+          </form>
       </Grid>
       {/* Chart */}
+      
       <Grid item xs={12} md={8} lg={9}>
         <Paper className={fixedHeightPaper}>
           <h2>Last activity</h2>
