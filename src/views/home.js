@@ -7,7 +7,7 @@ import IssueList from "../components/issue/list";
 import IssueDetails from "../components/issue/details";
 import ReportIssue from "../components/issue/add";
 import EditIssue from "../components/issue/edit";
-import UserList from "../components/admin/user-list";
+import UserList from "../components/admin/user-table";
 import Dashboard from '../components/user/dashboard';
 
 export default function Home({ match }) {
