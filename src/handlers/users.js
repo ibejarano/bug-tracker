@@ -81,10 +81,9 @@ async function update(id , params) {
 }
 
 
-async function changePassword(id , params) {
+async function changePassword(params) {
   try {
-    const res = await axios.put(`http://localhost:5000/user/change-password/${id}`,params, authHeader);
-    console.log(res);
+    const res = await axios.put(`http://localhost:5000/user/change-password`,params, authHeader);
     return res
   } catch (error) {
     console.log(error.String());
