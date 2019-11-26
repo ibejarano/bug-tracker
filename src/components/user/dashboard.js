@@ -9,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 
 import IssueList from "../issue/cards/table";
+import LoadingCicle from "../loading";
 
 const drawerWidth = 240;
 
@@ -92,44 +93,39 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function UserHome(props) {
-  // some title
-  // card with my issues
-  // card with my activities (blank for now)
-  // card with my data
-  // card with a to-do?
   const classes = useStyles();
   const [issues, setIssues] = useState([]);
   const [user, setUser] = useState({ username: "", email: "", activities: [] });
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-  const [password, setPassword] = useState('');
-  const [passwordConf, setPasswordConf] = useState('');
+  const [password, setPassword] = useState("");
+  const [passwordConf, setPasswordConf] = useState("");
 
-  const handlePasswordChange = (e) =>{
-    setPassword(e.target.value )
-  }
+  const handlePasswordChange = e => {
+    setPassword(e.target.value);
+  };
 
-  const handlePasswordConfChange = (e) =>{
-    setPasswordConf(e.target.value )
-  }
+  const handlePasswordConfChange = e => {
+    setPasswordConf(e.target.value);
+  };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     try {
-      console.log("Changing password")
+      console.log("Changing password");
       e.preventDefault();
-      const id = user._id
-      const params = {password, passwordConf}
-      await userHandler.changePassword(id, params)
-    } catch(error){
-      console.log("Error changing password:", error.toString())
+      const id = user._id;
+      const params = { password, passwordConf };
+      await userHandler.changePassword(id, params);
+    } catch (error) {
+      console.log("Error changing password:", error.toString());
     }
-  }
+  };
 
   useEffect(() => {
     async function fetchData() {
       const res = await userHandler.getUserInfo();
-      console.log(res)
-      const {user, issues} = res
+      console.log(res);
+      const { user, issues } = res;
       setIssues(issues);
       setUser(user);
     }
@@ -142,28 +138,46 @@ export default function UserHome(props) {
       {/* Recent Deposits */}
       <Grid item xs={12} md={4} lg={3}>
         <Paper className={fixedHeightPaper}>
-          <Typography>User info</Typography>
-          <Typography>Username: {user.username}</Typography>
-          <Typography>Email: {user.email}</Typography>
-
+          {user.username === "" ? (
+            <LoadingCicle />
+          ) : (
+            <div>
+              <Typography>User info</Typography>
+              <Typography>Username: {user.username}</Typography>
+              <Typography>Email: {user.email}</Typography>
+            </div>
+          )}
         </Paper>
         <form onSubmit={handleSubmit}>
-            <input type="password" name="password" onChange={handlePasswordChange} value={password} />
-            <input type="password" name="passwordConf" onChange={handlePasswordConfChange} value={passwordConf}/>
-            <button type='submit' >Change Password</button>
-          </form>
+          <input
+            type="password"
+            name="password"
+            onChange={handlePasswordChange}
+            value={password}
+          />
+          <input
+            type="password"
+            name="passwordConf"
+            onChange={handlePasswordConfChange}
+            value={passwordConf}
+          />
+          <button type="submit">Change Password</button>
+        </form>
       </Grid>
       {/* Chart */}
-      
+
       <Grid item xs={12} md={8} lg={9}>
         <Paper className={fixedHeightPaper}>
           <h2>Last activity</h2>
-          {/* <p>Under construction...</p> */}
-          <ul>
-            {user.activities.map((activity, idx) => {
-              return <li key={idx}>{activity}</li>;
-            })}
-          </ul>
+          {user.username === "" ? (
+            <LoadingCicle />
+          ) : (
+            <ul>
+              {user.activities.map((activity, idx) => {
+                return <li key={idx}>{activity}</li>;
+              })}
+            </ul>
+          )}
         </Paper>
       </Grid>
       {/* Recent Orders */}

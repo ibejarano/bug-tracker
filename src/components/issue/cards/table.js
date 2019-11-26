@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import LoadingCircle from "../../loading"
+
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -43,8 +45,9 @@ export default function IssueTable({
           </TableRow>
         </TableHead>
         <TableBody>
-          {issues.map(issue => (
-            <TableRow key={issue.title} hover>
+          
+            {issues.length ? ( issues.map(issue => (
+              <TableRow key={issue.title} hover>
               <TableCell component="th" scope="row">
                 <Link to={`/user/issue?q=${issue._id}`}>
                 {issue.title}
@@ -71,13 +74,21 @@ export default function IssueTable({
                     onClick={() => {
                       deleteIssue(issue._id);
                     }}
-                  >
+                    >
                     Delete
                   </button>
                 </TableCell>
               )}
             </TableRow>
-          ))}
+          ))
+          ) : (
+            <TableRow>
+            <TableCell colSpan={7}>
+            <LoadingCircle />
+            </TableCell>
+            </TableRow>
+          )
+          }
         </TableBody>
       </Table>
     </Paper>
