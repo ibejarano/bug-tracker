@@ -76,6 +76,10 @@ export default function LoginPage(props) {
     }
   };
 
+  if (authenticationService.currentUserValue ){
+    window.location = '/user'
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
