@@ -13,7 +13,8 @@ export const userHandler = {
   deleteById,
   logout,
   update,
-  changePassword
+  changePassword,
+  getUsernameById
 };
 
 async function getUserInfo() {
@@ -69,24 +70,44 @@ async function logout() {
   }
 }
 
-async function update(id , params) {
+async function update(id, params) {
   try {
-    const res = await axios.put(`http://localhost:5000/user/${id}`,params, authHeader);
+    const res = await axios.put(
+      `http://localhost:5000/user/${id}`,
+      params,
+      authHeader
+    );
     console.log(res);
-    return res
+    return res;
   } catch (error) {
     console.log(error.String());
     return error;
   }
 }
 
-
 async function changePassword(params) {
   try {
-    const res = await axios.put(`http://localhost:5000/user/change-password`,params, authHeader);
-    return res
+    const res = await axios.put(
+      `http://localhost:5000/user/change-password`,
+      params,
+      authHeader
+    );
+    return res;
   } catch (error) {
     console.log(error.String());
     return error;
+  }
+}
+
+async function getUsernameById(id) {
+  try {
+    const res = await axios.get(
+      `http://localhost:5000/user/username/${id}`,
+      authHeader
+    );
+    return res;
+  } catch (err) {
+    console.log("User not found!", err);
+    return err;
   }
 }

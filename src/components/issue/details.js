@@ -16,7 +16,7 @@ export default function BugPage(props) {
       setCommentsCards(
         <BugCommentCard
           comments={res.issue.comments}
-          assignee={res.issue.assignee}
+          assignee={res.issue.assignee.username}
         />
       );
     }

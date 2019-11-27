@@ -4,6 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
 import Paper from "@material-ui/core/Paper";
 
+import { userHandler } from "../../../handlers/users";
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
@@ -17,13 +19,17 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function ChipsArray({ info }) {
-  const { title, type, status, priority } = info;
+  const { title, type, status, priority, assignee } = info;
+
+  const username = assignee.username 
+
   const classes = useStyles();
   const chipData = [
     { key: 0, label: title, title: "Title" },
     { key: 1, label: type, title: "Type" },
     { key: 2, label: status, title: "Status" },
-    { key: 3, label: priority, title: "Priority" }
+    { key: 3, label: priority, title: "Priority" },
+    { key: 4, label: username, title: "Assignee" }
   ];
 
   return (

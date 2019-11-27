@@ -22,7 +22,6 @@ const useStyles = makeStyles({
 
 export default function CommentsCard({ comments, assignee }) {
   const classes = useStyles();
-  console.log(comments)
   const ListOfCommentCards = comments.map(comment => {
     return (
       <Card className={classes.card} key={comment._id}>
