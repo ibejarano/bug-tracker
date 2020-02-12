@@ -21,6 +21,11 @@ const useStyles = makeStyles({
   }
 });
 
+function formatDate(date){
+  let isoTime = new Date(date)
+  return isoTime.getFullYear() + "-" + (isoTime.getMonth() + 1) + "-" + isoTime.getDate() + " " + isoTime.getHours() + ":" + isoTime.getMinutes()
+}
+
 export default function IssueTable({
   issues,
   isAdmin,
@@ -33,13 +38,13 @@ export default function IssueTable({
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell variant='head'  >Issue Title</TableCell>
-            <TableCell variant='head' align="right">Status</TableCell>
-            <TableCell variant='head' align="right">Type</TableCell>
-            <TableCell variant='head' align="right">Priority</TableCell>
-            {showAssignee && <TableCell variant='head' align="right">Assignee</TableCell>}
-            <TableCell variant='head' align="right">Created At</TableCell>
-            <TableCell variant='head' align="right">Update At</TableCell>
+            <TableCell variant='head'  >Titulo</TableCell>
+            <TableCell variant='head' align="right">Estado</TableCell>
+            <TableCell variant='head' align="right">Tipo</TableCell>
+            <TableCell variant='head' align="right">Prioridad</TableCell>
+            {showAssignee && <TableCell variant='head' align="right">Asignado</TableCell>}
+            <TableCell variant='head' align="right">Creado</TableCell>
+            <TableCell variant='head' align="right">Actualizado</TableCell>
             {isAdmin && <TableCell align="right"> </TableCell>}
             {isAdmin && <TableCell align="right"> </TableCell>}
           </TableRow>
@@ -61,8 +66,8 @@ export default function IssueTable({
                   {issue.assignee ? issue.assignee.username : "Not Assignee"}
                 </TableCell>
               )}
-              <TableCell align="right">{issue.createdAt}</TableCell>
-              <TableCell align="right">{issue.updatedAt}</TableCell>
+              <TableCell align="right">{formatDate(issue.createdAt)}</TableCell>
+              <TableCell align="right">{formatDate(issue.updatedAt)}</TableCell>
               {isAdmin && (
                 <TableCell align="right">
                   <Link to={`/user/issue-edit?id=${issue._id}`}>Edit</Link>
