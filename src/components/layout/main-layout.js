@@ -113,6 +113,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const  mapPathToName = {
+  'issue-log': 'Lista de Tareas',
+  'report-issue': 'Reportar nueva tarea',
+  'list': 'Admin : Editar Usuarios'
+}
+
+function getSectionName(loc){
+  const sectionPath = loc.replace(/(\/user\/)/,'')
+  return mapPathToName[sectionPath]
+}
+
 export default function Dashboard(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
@@ -123,7 +134,8 @@ export default function Dashboard(props) {
     setOpen(false);
   };
 
-  const isAdmin = authenticationService.isAdmin;
+  const {isAdmin}= authenticationService;
+  const section = getSectionName(props.location.pathname)
 
   return (
     <div className={classes.root}>
@@ -152,10 +164,10 @@ export default function Dashboard(props) {
             noWrap
             className={classes.title}
           >
-            Dashboard
+            {section || 'Inicio'}
           </Typography>
           <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
+            <Badge badgeContent={'TODO'} color="secondary">
               <NotificationsIcon />
             </Badge>
           </IconButton>

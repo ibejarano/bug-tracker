@@ -10,11 +10,12 @@ import EditIssue from "../components/issue/edit";
 import UserList from "../components/admin/user-table";
 import Dashboard from '../components/user/dashboard';
 
-export default function Home({ match }) {
+export default function Home(props) {
+  const {match} = props
 
   return (
-    <Layout matchUrl={match.path}>
       <Switch>
+    <Layout matchUrl={match.path}>
         <Route exact path={`${match.path}`} component={Dashboard} />
         <Route path={`${match.path}/issue`} component={IssueDetails} />
         <Route exact path={`${match.path}/issue-log`} component={IssueList} />
@@ -25,7 +26,7 @@ export default function Home({ match }) {
           component={ReportIssue}
         />
         <Route path={`${match.path}/issue-edit`} component={EditIssue} />
-      </Switch>
     </Layout>
+      </Switch>
   );
 }

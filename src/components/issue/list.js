@@ -3,7 +3,7 @@ import { issuesHandler } from "../../handlers/issues";
 
 import IssueTable from "./cards/table";
 
-export default function IssueList() {
+export default function IssueList(props) {
   const [issues, setIssues] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
 
