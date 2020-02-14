@@ -1,5 +1,8 @@
 import React from "react";
 
+import {getIsoDate} from "../../../helpers/formatDate"
+import 'typeface-roboto';
+
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -16,7 +19,7 @@ const useStyles = makeStyles({
     fontSize: 14
   },
   pos: {
-    marginBottom: 12
+    marginBottom: "40px",
   }
 });
 
@@ -29,13 +32,13 @@ export default function CommentsCard({ comments, assignee }) {
           {assignee.username === comment.author && (
             <Chip color="primary" label="Asignee" />
           )}
-          <Typography variant="h5" component="h2">
-            {comment.author}
+          <Typography component="subtitle1" color="textPrimary">
+            {comment.author} - <span /> 
           </Typography>
-          <Typography className={classes.pos} color="textSecondary">
-            {comment.date}
+          <Typography className={classes.pos} inline color="textSecondary" component="body1">
+            {getIsoDate(comment.date)}
           </Typography>
-          <Typography variant="body1" component="p">
+          <Typography component="p">
             {comment.text}
           </Typography>
           {comment.updateStatus && <ChipsArray info={comment.updateStatus} />}

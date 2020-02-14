@@ -1,36 +1,32 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import {Link} from 'react-router-dom';
 
-import LoadingCircle from "../../loading"
+import LoadingCircle from '../../loading';
+import {getIsoDate} from '../../../helpers/formatDate';
 
-import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
+import {makeStyles} from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles({
   root: {
-    width: "100%",
-    overflowX: "auto"
+    width: '100%',
+    overflowX: 'auto',
   },
   table: {
-    minWidth: 650
-  }
+    minWidth: 650,
+  },
 });
-
-function formatDate(date){
-  let isoTime = new Date(date)
-  return isoTime.getFullYear() + "-" + (isoTime.getMonth() + 1) + "-" + isoTime.getDate() + " " + isoTime.getHours() + ":" + isoTime.getMinutes()
-}
 
 export default function IssueTable({
   issues,
   isAdmin,
   deleteIssue,
-  showAssignee = true
+  showAssignee = true,
 }) {
   const classes = useStyles();
   return (
@@ -38,62 +34,76 @@ export default function IssueTable({
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell variant='head'  >Titulo</TableCell>
-            <TableCell variant='head' align="right">Estado</TableCell>
-            <TableCell variant='head' align="right">Tipo</TableCell>
-            <TableCell variant='head' align="right">Prioridad</TableCell>
-            {showAssignee && <TableCell variant='head' align="right">Asignado</TableCell>}
-            <TableCell variant='head' align="right">Creado</TableCell>
-            <TableCell variant='head' align="right">Actualizado</TableCell>
+            <TableCell variant="head">Titulo</TableCell>
+            <TableCell variant="head" align="right">
+              Estado
+            </TableCell>
+            <TableCell variant="head" align="right">
+              Tipo
+            </TableCell>
+            <TableCell variant="head" align="right">
+              Prioridad
+            </TableCell>
+            {showAssignee && (
+              <TableCell variant="head" align="right">
+                Asignado
+              </TableCell>
+            )}
+            <TableCell variant="head" align="right">
+              Creado
+            </TableCell>
+            <TableCell variant="head" align="right">
+              Actualizado
+            </TableCell>
             {isAdmin && <TableCell align="right"> </TableCell>}
             {isAdmin && <TableCell align="right"> </TableCell>}
           </TableRow>
         </TableHead>
         <TableBody>
-          
-            {issues.length ? ( issues.map(issue => (
+          {issues.length ? (
+            issues.map(issue => (
               <TableRow key={issue.title} hover>
-              <TableCell component="th" scope="row">
-                <Link to={`/user/issue?q=${issue._id}`}>
-                {issue.title}
-                </Link>
-              </TableCell>
-              <TableCell align="right">{issue.type}</TableCell>
-              <TableCell align="right">{issue.status}</TableCell>
-              <TableCell align="right">{issue.priority}</TableCell>
-              {showAssignee && (
-                <TableCell align="right">
-                  {issue.assignee ? issue.assignee.username : "Not Assignee"}
+                <TableCell component="th" scope="row">
+                  <Link to={`/user/issue?q=${issue._id}`}>{issue.title}</Link>
                 </TableCell>
-              )}
-              <TableCell align="right">{formatDate(issue.createdAt)}</TableCell>
-              <TableCell align="right">{formatDate(issue.updatedAt)}</TableCell>
-              {isAdmin && (
+                <TableCell align="right">{issue.type}</TableCell>
+                <TableCell align="right">{issue.status}</TableCell>
+                <TableCell align="right">{issue.priority}</TableCell>
+                {showAssignee && (
+                  <TableCell align="right">
+                    {issue.assignee ? issue.assignee.username : 'Not Assignee'}
+                  </TableCell>
+                )}
                 <TableCell align="right">
-                  <Link to={`/user/issue-edit?id=${issue._id}`}>Edit</Link>
+                  {getIsoDate(issue.createdAt)}
                 </TableCell>
-              )}
-              {isAdmin && (
                 <TableCell align="right">
-                  <button
-                    onClick={() => {
-                      deleteIssue(issue._id);
-                    }}
-                    >
-                    Delete
-                  </button>
+                  {getIsoDate(issue.updatedAt)}
                 </TableCell>
-              )}
-            </TableRow>
-          ))
+                {isAdmin && (
+                  <TableCell align="right">
+                    <Link to={`/user/issue-edit?id=${issue._id}`}>Edit</Link>
+                  </TableCell>
+                )}
+                {isAdmin && (
+                  <TableCell align="right">
+                    <button
+                      onClick={() => {
+                        deleteIssue(issue._id);
+                      }}>
+                      Delete
+                    </button>
+                  </TableCell>
+                )}
+              </TableRow>
+            ))
           ) : (
             <TableRow>
-            <TableCell colSpan={7}>
-            <LoadingCircle />
-            </TableCell>
+              <TableCell colSpan={7}>
+                <LoadingCircle />
+              </TableCell>
             </TableRow>
-          )
-          }
+          )}
         </TableBody>
       </Table>
     </Paper>
