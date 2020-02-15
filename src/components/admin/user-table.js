@@ -1,20 +1,21 @@
-import React, { useEffect } from "react";
-import MaterialTable from "material-table";
-import { userHandler } from "../../handlers/users";
+import React, {useEffect} from 'react';
+import MaterialTable from 'material-table';
+import {userHandler} from '../../handlers/users';
+import Layout from '../layout/main-layout';
 
 export default function MaterialTableDemo() {
   const [userData, setUserData] = React.useState([
-    { username: "", email: "", role: 99 }
+    {username: '', email: '', role: 99},
   ]);
 
   const cols = [
-    { title: "User Name", field: "username" },
-    { title: "E-mail", field: "email" },
+    {title: 'User Name', field: 'username'},
+    {title: 'E-mail', field: 'email'},
     {
-      title: "Role",
-      field: "role",
-      lookup: { 0: "Administrator", 1: "User", 2: "Developer", 99: " " }
-    }
+      title: 'Role',
+      field: 'role',
+      lookup: {0: 'Administrator', 1: 'User', 2: 'Developer', 99: ' '},
+    },
   ];
 
   const [loadingUsers, setLoadingUsers] = React.useState(true);
@@ -25,7 +26,7 @@ export default function MaterialTableDemo() {
       await userHandler.update(id, newData);
       setLoadingUsers(true);
     } catch (error) {
-      console.log("Error during user update!");
+      console.log('Error during user update!');
       console.log(error.toString());
     }
   };
@@ -36,14 +37,14 @@ export default function MaterialTableDemo() {
       await userHandler.deleteById(id);
       setLoadingUsers(true);
     } catch (error) {
-      console.log("Error during user delete!");
+      console.log('Error during user delete!');
       console.log(error.toString());
     }
   };
 
   useEffect(() => {
     if (loadingUsers) {
-      console.log("Running Effect again");
+      console.log('Running Effect again');
       userHandler
         .getAllUsers()
         .then(data => {
@@ -52,20 +53,22 @@ export default function MaterialTableDemo() {
         })
         .catch(error => {
           console.log(error.toString());
-          window.location = "/user";
+          window.location = '/user';
         });
     }
   }, [loadingUsers]);
 
   return (
-    <MaterialTable
-      title="User Edit Panel"
-      columns={cols}
-      data={userData}
-      editable={{
-        onRowUpdate: handleUpdate,
-        onRowDelete: handleDelete
-      }}
-    />
+    <Layout section="[ADMIN ONLY]: Editar usuarios">
+      <MaterialTable
+        title="User Edit Panel"
+        columns={cols}
+        data={userData}
+        editable={{
+          onRowUpdate: handleUpdate,
+          onRowDelete: handleDelete,
+        }}
+      />
+    </Layout>
   );
 }

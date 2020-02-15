@@ -1,157 +1,157 @@
-import React, { useState, useEffect } from "react";
-import { userHandler } from "../../handlers/users";
-import clsx from "clsx";
+import React, {useState, useEffect} from 'react';
+import {userHandler} from '../../handlers/users';
+import clsx from 'clsx';
 
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
+import {makeStyles} from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
-import IssueList from "../issue/cards/table";
-import LoadingCicle from "../loading";
+import IssueList from '../issue/cards/table';
+import LoadingCicle from '../loading';
 import ChangePasswordDialog from './change-password';
+import Layout from '../layout/main-layout';
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: "flex"
+    display: 'flex',
   },
   toolbar: {
-    paddingRight: 24 // keep right padding when drawer closed
+    paddingRight: 24, // keep right padding when drawer closed
   },
   toolbarIcon: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    padding: "0 8px",
-    ...theme.mixins.toolbar
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: '0 8px',
+    ...theme.mixins.toolbar,
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(["width", "margin"], {
+    transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
+      duration: theme.transitions.duration.leavingScreen,
+    }),
   },
   appBarShift: {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
+    transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
   menuButton: {
-    marginRight: 36
+    marginRight: 36,
   },
   menuButtonHidden: {
-    display: "none"
+    display: 'none',
   },
   title: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   drawerPaper: {
-    position: "relative",
-    whiteSpace: "nowrap",
+    position: 'relative',
+    whiteSpace: 'nowrap',
     width: drawerWidth,
-    transition: theme.transitions.create("width", {
+    transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
   drawerPaperClose: {
-    overflowX: "hidden",
-    transition: theme.transitions.create("width", {
+    overflowX: 'hidden',
+    transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
+      duration: theme.transitions.duration.leavingScreen,
     }),
     width: theme.spacing(7),
-    [theme.breakpoints.up("sm")]: {
-      width: theme.spacing(9)
-    }
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing(9),
+    },
   },
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
-    height: "100vh",
-    overflow: "auto"
+    height: '100vh',
+    overflow: 'auto',
   },
   container: {
     paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4)
+    paddingBottom: theme.spacing(4),
   },
   paper: {
     padding: theme.spacing(2),
-    display: "flex",
-    overflow: "auto",
-    flexDirection: "column"
+    display: 'flex',
+    overflow: 'auto',
+    flexDirection: 'column',
   },
   fixedHeight: {
-    height: 240
-  }
+    height: 240,
+  },
 }));
 
 export default function UserHome(props) {
   const classes = useStyles();
   const [issues, setIssues] = useState([]);
-  const [user, setUser] = useState({ username: "", email: "", activities: [] });
+  const [user, setUser] = useState({username: '', email: '', activities: []});
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
-
-
 
   useEffect(() => {
     async function fetchData() {
       const res = await userHandler.getUserInfo();
       console.log(res);
-      const { user, issues } = res;
+      const {user, issues} = res;
       setIssues(issues);
       setUser(user);
     }
-    console.log("effect running");
+    console.log('effect running');
     fetchData();
   }, []);
   console.log(user);
   return (
-    <Grid container spacing={3}>
-      {/* Recent Deposits */}
-      <Grid item xs={12} md={4} lg={3}>
-        <Paper className={fixedHeightPaper}>
-          {user.username === "" ? (
-            <LoadingCicle />
-          ) : (
-            <div>
-              <Typography>User info</Typography>
-              <Typography>Username: {user.username}</Typography>
-              <Typography>Email: {user.email}</Typography>
-            </div>
-          )}
-        {/* Change pass button */}
-        <ChangePasswordDialog />
-        </Paper>
-      </Grid>
-      {/* Chart */}
+    <Layout section="Dashboard">
+      <Grid container spacing={3}>
+        {/* Recent Deposits */}
+        <Grid item xs={12} md={4} lg={3}>
+          <Paper className={fixedHeightPaper}>
+            {user.username === '' ? (
+              <LoadingCicle />
+            ) : (
+              <div>
+                <Typography>User info</Typography>
+                <Typography>Username: {user.username}</Typography>
+                <Typography>Email: {user.email}</Typography>
+              </div>
+            )}
+            {/* Change pass button */}
+            <ChangePasswordDialog />
+          </Paper>
+        </Grid>
+        {/* Chart */}
 
-      <Grid item xs={12} md={8} lg={9}>
-        <Paper className={fixedHeightPaper}>
-          <h2>Last activity</h2>
-          {user.username === "" ? (
-            <LoadingCicle />
-          ) : (
-            <ul>
-              {user.activities.map((activity, idx) => {
-                return <li key={idx}>{activity}</li>;
-              })}
-            </ul>
-          )}
-        </Paper>
+        <Grid item xs={12} md={8} lg={9}>
+          <Paper className={fixedHeightPaper}>
+            <h2>Last activity</h2>
+            {user.username === '' ? (
+              <LoadingCicle />
+            ) : (
+              <ul>
+                {user.activities.map((activity, idx) => {
+                  return <li key={idx}>{activity}</li>;
+                })}
+              </ul>
+            )}
+          </Paper>
+        </Grid>
+        {/* Recent Orders */}
+        <Grid item xs={12}>
+          <IssueList issues={issues} showAssignee={false} />
+        </Grid>
       </Grid>
-      {/* Recent Orders */}
-      <Grid item xs={12}>
-        <IssueList issues={issues} showAssignee={false} />
-      </Grid>
-    </Grid>
+    </Layout>
   );
 }

@@ -134,7 +134,7 @@ export default function Dashboard(props) {
   };
 
   const {isAdmin}= authenticationService;
-  const section = getSectionName(props.location.pathname)
+  const {section} = props;
 
   return (
     <div className={classes.root}>
@@ -163,7 +163,7 @@ export default function Dashboard(props) {
             noWrap
             className={classes.title}
           >
-            {section || 'Inicio'}
+            {section || 'Seccion desconocida'}            
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={'TODO'} color="secondary">

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { issuesHandler } from "../../handlers/issues";
+import React, {useState, useEffect} from 'react';
+import {issuesHandler} from '../../handlers/issues';
 
-import IssueTable from "./cards/table";
+import IssueTable from './cards/table';
+import Layout from '../layout/main-layout';
 
 export default function IssueList(props) {
   const [issues, setIssues] = useState([]);
@@ -11,7 +12,7 @@ export default function IssueList(props) {
     issuesHandler
       .deleteById(id)
       .then(res => console.log(res))
-      .catch(err => console.log("Error ocurred!", err))
+      .catch(err => console.log('Error ocurred!', err))
       .finally(() => setIssues([]));
   };
 
@@ -22,14 +23,12 @@ export default function IssueList(props) {
         setIssues(data.issues);
         setIsAdmin(data.user.role === 0 ? true : false);
       })
-      .catch(err => console.log("There is an error", err));
+      .catch(err => console.log('There is an error', err));
   }, []);
 
   return (
-        <IssueTable
-          issues={issues}
-          isAdmin={isAdmin}
-          deleteIssue={deleteIssue}
-        />
+    <Layout section="Lista de Issues">
+      <IssueTable issues={issues} isAdmin={isAdmin} deleteIssue={deleteIssue} />
+    </Layout>
   );
 }

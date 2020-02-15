@@ -60,7 +60,7 @@ async function logout() {
   }
 }
 
-export function mainListItems(absPath) {
+export function mainListItems(absPath='/user') {
   return (
     <div>
       {mainList.map((item, idx) => MaterialIconsList(item, idx, absPath))}
@@ -68,7 +68,7 @@ export function mainListItems(absPath) {
   );
 }
 
-export function adminListItems(absPath) {
+export function adminListItems(absPath='/user') {
   return (
     <div>
       <ListSubheader inset>Admin Panel</ListSubheader>

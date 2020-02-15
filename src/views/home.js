@@ -15,7 +15,6 @@ export default function Home(props) {
 
   return (
       <Switch>
-    <Layout matchUrl={match.path}>
         <Route exact path={`${match.path}`} component={Dashboard} />
         <Route path={`${match.path}/issue`} component={IssueDetails} />
         <Route exact path={`${match.path}/issue-log`} component={IssueList} />
@@ -26,7 +25,6 @@ export default function Home(props) {
           component={ReportIssue}
         />
         <Route path={`${match.path}/issue-edit`} component={EditIssue} />
-    </Layout>
       </Switch>
   );
 }

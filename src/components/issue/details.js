@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import { issuesHandler } from "../../handlers/issues";
-import BugInfoCard from "./cards/bug-info-card";
-import BugCommentCard from "./cards/bug-comment-card";
-import BugAddComment from "./add-comment";
+import IssueInfoCard from "./cards/bug-info-card";
+import IssueCommentCard from "./cards/bug-comment-card";
+import IssueAddComment from "./add-comment";
+import Layout from '../layout/main-layout'
 
 export default function BugPage(props) {
   async function getIssueComments() {
@@ -14,7 +15,7 @@ export default function BugPage(props) {
     setIsAdmin(res.user.role === 0? true: false);
     if (res.issue.comments.length) {
       setCommentsCards(
-        <BugCommentCard
+        <IssueCommentCard
           comments={res.issue.comments}
           assignee={res.issue.assignee.username}
         />
@@ -42,11 +43,11 @@ export default function BugPage(props) {
   }, []);
 
   return (
-    <div>
-      {issue && <BugInfoCard info={issue} />}
+    <Layout section={`Issue: #${id}`}>
+      {issue && <IssueInfoCard info={issue} />}
       {isAdmin && <Link to={`/user/issue-edit?id=${id}`}>Edit Issue</Link>}
       {commentsCards}
-      <BugAddComment addNewComment={addNewComment} />
-    </div>
+      <IssueAddComment addNewComment={addNewComment} />
+    </Layout>
   );
 }
