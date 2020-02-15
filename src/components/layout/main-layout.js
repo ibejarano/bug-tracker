@@ -10,12 +10,13 @@ import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import Badge from "@material-ui/core/Badge";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import NotificationsIcon from "@material-ui/icons/Notifications";
+import GitHubIcon from "@material-ui/icons/GitHub";
+import TwitterIcon from "@material-ui/icons/Twitter";
+import InstagramIcon from "@material-ui/icons/Instagram";
 import { mainListItems, adminListItems, logoutItem } from "./listItems";
 import { authenticationService } from "../../handlers/authentication";
 
@@ -154,10 +155,14 @@ export default function Dashboard(props) {
           >
             {section || 'Seccion desconocida'}            
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={'TODO'} color="secondary">
-              <NotificationsIcon />
-            </Badge>
+          <IconButton color="inherit" component="a" href="https://github.com/ibejarano">
+              <GitHubIcon  />
+          </IconButton>
+          <IconButton color="inherit" component="a" href="https://twitter.com/IgnacioBejara13">
+              <TwitterIcon  />
+          </IconButton>
+          <IconButton color="inherit" component="a" href="https://instagram.com/nacho.bejarano">
+              <InstagramIcon  />
           </IconButton>
         </Toolbar>
       </AppBar>
