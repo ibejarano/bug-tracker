@@ -112,17 +112,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const  mapPathToName = {
-  'issue-log': 'Lista de Tareas',
-  'report-issue': 'Reportar nueva tarea',
-  'list': 'Admin : Editar Usuarios'
-}
-
-function getSectionName(loc){
-  const sectionPath = loc.replace(/(\/user\/)/,'')
-  return mapPathToName[sectionPath]
-}
-
 export default function Dashboard(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);

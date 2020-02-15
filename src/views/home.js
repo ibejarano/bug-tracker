@@ -1,8 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
-import Layout from "../components/layout/main-layout";
-
 import IssueList from "../components/issue/list";
 import IssueDetails from "../components/issue/details";
 import ReportIssue from "../components/issue/add";

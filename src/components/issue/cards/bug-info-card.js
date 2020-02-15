@@ -1,48 +1,68 @@
-import React from "react";
+import React from 'react';
+import {Link} from 'react-router-dom'
 
-import { makeStyles } from "@material-ui/core/styles";
-import Chip from "@material-ui/core/Chip";
-import Paper from "@material-ui/core/Paper";
-
-import { userHandler } from "../../../handlers/users";
+import {makeStyles} from '@material-ui/core/styles';
+import Chip from '@material-ui/core/Chip';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: "flex",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    padding: theme.spacing(0.5)
+    display: 'flex',
+    justifyContent: 'start',
+    flexWrap: 'wrap',
+    padding: theme.spacing(0.5),
+    backgroundColor: 'inherit',
+  },
+  title: {
+    color: 'white',
+    margin: 'auto 0',
   },
   chip: {
-    margin: theme.spacing(0.5)
-  }
+    margin: theme.spacing(0.5),
+  },
+  chipAdmin: {
+    margin: theme.spacing(0.5),
+    color: 'red',
+  },
 }));
 
-export default function ChipsArray({ info }) {
-  const { title, type, status, priority, assignee } = info;
+export default function ChipsArray({info, editIssueUrl}) {
+  const {title, type, status, priority, assignee} = info;
 
-  const username = assignee.username 
+  const username = assignee.username;
 
   const classes = useStyles();
   const chipData = [
-    { key: 0, label: title, title: "Title" },
-    { key: 1, label: type, title: "Type" },
-    { key: 2, label: status, title: "Status" },
-    { key: 3, label: priority, title: "Priority" },
-    { key: 4, label: username, title: "Assignee" }
+    {key: 1, label: type, title: 'Type'},
+    {key: 2, label: status, title: 'Status'},
+    {key: 3, label: priority, title: 'Priority'},
+    {key: 4, label: username, title: 'Assignee'},
   ];
+  console.log(editIssueUrl)
 
   return (
     <Paper className={classes.root}>
-      {chipData.map(data => {
-        return (
-          <Chip
-            key={data.key}
-            label={data.title + ": " + data.label}
-            className={classes.chip}
-          />
-        );
-      })}
+      <div className={classes.title}>{title}</div>
+      <div className={classes.root}>
+        {chipData.map(data => {
+          return (
+            <Chip
+              key={data.key}
+              label={data.title + ': ' + data.label}
+              className={classes.chip}
+            />
+          );
+        })}
+    { editIssueUrl && 
+        <Link to={editIssueUrl}>
+        <Chip
+          key='admin-chip'
+          label='Edit Issue'
+          className={classes.chipAdmin}
+        />
+      </Link>
+    }
+      </div>
     </Paper>
   );
 }
