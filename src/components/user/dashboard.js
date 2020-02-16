@@ -102,7 +102,9 @@ export default function UserHome(props) {
 
   useEffect(() => {
     async function fetchData() {
+      console.log('fetching user info')
       const res = await userHandler.getUserInfo();
+      console.log('this is the info!')
       console.log(res);
       const {user, issues} = res;
       setIssues(issues);

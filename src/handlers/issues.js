@@ -1,11 +1,4 @@
 import axios from 'axios';
-import { authenticationService } from './authentication';
-
-const authHeader  = {
-    headers: {
-        Authorization: 'Bearer ' + authenticationService.currentUserValue
-    }
-}
 
 export const issuesHandler = {
     getAll,
@@ -16,9 +9,13 @@ export const issuesHandler = {
     addComment
 }
 
+const options = {
+  withCredentials: true
+}
+
 async function getAll(){
     try {
-        const res = await axios.get('http://localhost:5000/bugs', authHeader);
+        const res = await axios.get('http://localhost:5000/bugs', options);
         console.log('All the data is here:',res.data)
         return res.data
     } catch (err) {
@@ -29,7 +26,7 @@ async function getAll(){
 
 async function getById(id) {
     try {
-        const res = await axios.get(`http://localhost:5000/bugs/${id}`, authHeader);
+        const res = await axios.get(`http://localhost:5000/bugs/${id}`, options);
         return res.data
     } catch (err) {
         console.log('Issue id not found!', err)
@@ -39,7 +36,7 @@ async function getById(id) {
 
 async function add(params){
     try {
-        const res = await axios.post('http://localhost:5000/bugs',params, authHeader);
+        const res = await axios.post('http://localhost:5000/bugs',params, options);
         console.log('new Issue registered!')
         return res
     } catch (err) {
@@ -52,7 +49,7 @@ async function update(id, params) {
     console.log('Updating bug #', id)
     const urlPost = `http://localhost:5000/bugs/${id}`;
     try {
-        const res = await axios.put(urlPost, params, authHeader)
+        const res = await axios.put(urlPost, params, options)
         // TODO use this to display some info!
         return res
     } catch (error) {
@@ -63,7 +60,7 @@ async function update(id, params) {
 
 async function deleteById(id){
     try {
-        const res = await axios.delete(`http://localhost:5000/bugs/${id}`, authHeader);
+        const res = await axios.delete(`http://localhost:5000/bugs/${id}`, options);
         return res
     } catch (err) {
         console.log('Bug id not found!', err)
@@ -74,6 +71,6 @@ async function deleteById(id){
 
 async function addComment(id, params) {
     const urlComments = `http://localhost:5000/bugs/add-comment/${id}`
-    const res = await axios.put(urlComments , params, authHeader)
+    const res = await axios.put(urlComments , params, options)
     return res
 }
