@@ -14,12 +14,16 @@ export const authenticationService = {
 }
 
 async function login(email, password) {
+  const config = {
+    headers: {
+      'Content-Type' : 'application/json',
+    },
+    withCredentials: true
+  }
     const params = { email, password }
-    let res = await axios.post('http://localhost:5000/login', params).catch(err => console.log('Some error!', err));
-    localStorage.setItem('currentUser', JSON.stringify(res.data.token));
-    localStorage.setItem('isAdmin', JSON.stringify(res.data.userAuth.role === 0? true: false ));
-    currentUserSubject.next(res.data.userAuth)
-    return res.data.userAuth
+  console.log('sending for response')
+    const res = await axios.post('http://localhost:5000/login', params, config).catch(err => console.log('Some error!', err));
+  return res.data.userAuth
 }
 
 function removeSession(){

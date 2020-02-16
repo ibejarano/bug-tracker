@@ -2,10 +2,12 @@ import axios from "axios";
 import { authenticationService } from "./authentication";
 
 const authHeader = {
-  headers: {
     Authorization: "Bearer " + authenticationService.currentUserValue
   }
-};
+
+const options = {
+  withCredentials: true
+}
 
 export const userHandler = {
   getUserInfo,
@@ -19,7 +21,9 @@ export const userHandler = {
 
 async function getUserInfo() {
   try {
-    let res = await axios.get("http://localhost:5000/user/info", authHeader);
+    console.log('getting all the info!')
+    let res = await axios.get("http://localhost:5000/user/info", options);
+    console.log(res)
     return res.data;
   } catch (error) {
     console.log("Error ocurred get user info.", error.toString());

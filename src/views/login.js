@@ -65,7 +65,6 @@ export default function LoginPage(props) {
         params.email,
         params.password
       );
-      console.log("Response from server", res);
       //props.updateLogin();
       window.location = '/user'
     } catch (error) {
