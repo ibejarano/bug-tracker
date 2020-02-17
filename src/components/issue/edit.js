@@ -122,13 +122,13 @@ export default function EditIssue(props) {
     }
   });
 
-  const issueTypeOptions = ["Bug", "Task", "Enhancement", "Proposal"].map(
+  const issueTypeOptions = ["Bug", "Tarea", "Mejora", "Propuesta"].map(
     createOptionTags
   );
-  const priorityOptions = ["Low", "Medium", "High", "Urgent!"].map(
+  const priorityOptions = ["Baja", "Media", "Alta", "Urgente!"].map(
     createOptionTags
   );
-  const statusOptions = ["New", "Open", "Closed", "Paused"].map(
+  const statusOptions = ["Nuevo", "Abierto", "Cerrado", "Pausado"].map(
     createOptionTags
   );
 

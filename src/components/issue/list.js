@@ -27,7 +27,7 @@ export default function IssueList(props) {
   }, []);
 
   return (
-    <Layout section="Lista de Issues">
+    <Layout section="Lista de Issues" isAdmin={isAdmin}>
       <IssueTable issues={issues} isAdmin={isAdmin} deleteIssue={deleteIssue} />
     </Layout>
   );

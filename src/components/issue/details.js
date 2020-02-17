@@ -6,7 +6,7 @@ import IssueCommentCard from './cards/bug-comment-card';
 import IssueAddComment from './add-comment';
 import Layout from '../layout/main-layout';
 
-export default function BugPage(props) {
+export default function IssueDetails(props) {
   async function getIssueComments() {
     const res = await issuesHandler.getById(id);
     console.log('Received issue info', res);
@@ -52,7 +52,9 @@ export default function BugPage(props) {
         ) : (
           'Cargando...'
         )
-      }>
+      }
+   isAdmin={isAdmin} 
+    >
       {commentsCards}
       <IssueAddComment addNewComment={addNewComment} />
     </Layout>

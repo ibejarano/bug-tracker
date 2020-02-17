@@ -34,7 +34,7 @@ async function getUserInfo() {
 
 async function getAllUsers() {
   try {
-    const res = await axios.get("http://localhost:5000/user/", authHeader);
+    const res = await axios.get("http://localhost:5000/user/", options);
     return res.data;
   } catch (err) {
     console.log("Users not found!", err);
@@ -46,7 +46,7 @@ async function deleteById(id) {
   try {
     const res = await axios.delete(
       `http://localhost:5000/user/${id}`,
-      authHeader
+      options
     );
     return res;
   } catch (err) {
@@ -61,7 +61,7 @@ async function logout() {
     const res = await axios.put(
       "http://localhost:5000/user/logout/",
       params,
-      authHeader
+      options
     );
     if (res.status === 200) {
       authenticationService.removeSession();
@@ -79,7 +79,7 @@ async function update(id, params) {
     const res = await axios.put(
       `http://localhost:5000/user/${id}`,
       params,
-      authHeader
+      options
     );
     console.log(res);
     return res;
@@ -94,7 +94,7 @@ async function changePassword(params) {
     const res = await axios.put(
       `http://localhost:5000/user/change-password`,
       params,
-      authHeader
+      options
     );
     return res;
   } catch (error) {
@@ -107,7 +107,7 @@ async function getUsernameById(id) {
   try {
     const res = await axios.get(
       `http://localhost:5000/user/username/${id}`,
-      authHeader
+      options
     );
     return res;
   } catch (err) {

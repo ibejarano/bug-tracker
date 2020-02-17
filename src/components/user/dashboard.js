@@ -113,9 +113,8 @@ export default function UserHome(props) {
     console.log('effect running');
     fetchData();
   }, []);
-  console.log(user);
   return (
-    <Layout section="Dashboard">
+    <Layout section="Dashboard" isAdmin={user.isAdmin}>
       <Grid container spacing={3}>
         {/* Recent Deposits */}
         <Grid item xs={12} md={4} lg={3}>

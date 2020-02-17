@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
 
 import {makeStyles} from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
@@ -29,16 +29,16 @@ const useStyles = makeStyles(theme => ({
 export default function ChipsArray({info, editIssueUrl}) {
   const {title, type, status, priority, assignee} = info;
 
-  const username = assignee.username;
+  const username = assignee ? assignee.username : 'No definido';
 
   const classes = useStyles();
   const chipData = [
-    {key: 1, label: type, title: 'Type'},
-    {key: 2, label: status, title: 'Status'},
-    {key: 3, label: priority, title: 'Priority'},
-    {key: 4, label: username, title: 'Assignee'},
+    {key: 1, label: type, title: 'Tipo'},
+    {key: 2, label: status, title: 'Estado'},
+    {key: 3, label: priority, title: 'Prioridad'},
+    {key: 4, label: username, title: 'Responsable'},
   ];
-  console.log(editIssueUrl)
+  console.log(editIssueUrl);
 
   return (
     <Paper className={classes.root}>
@@ -53,15 +53,15 @@ export default function ChipsArray({info, editIssueUrl}) {
             />
           );
         })}
-    { editIssueUrl && 
-        <Link to={editIssueUrl}>
-        <Chip
-          key='admin-chip'
-          label='Edit Issue'
-          className={classes.chipAdmin}
-        />
-      </Link>
-    }
+        {editIssueUrl && (
+          <Link to={editIssueUrl}>
+            <Chip
+              key="admin-chip"
+              label="Edit Issue"
+              className={classes.chipAdmin}
+            />
+          </Link>
+        )}
       </div>
     </Paper>
   );
