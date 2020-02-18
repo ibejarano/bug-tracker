@@ -61,7 +61,7 @@ export default function LoginPage(props) {
     e.preventDefault();
     const params = { email, password };
     try {
-      const res = await authenticationService.login(
+      await authenticationService.login(
         params.email,
         params.password
       );

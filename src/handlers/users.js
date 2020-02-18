@@ -1,10 +1,6 @@
 import axios from "axios";
 import { authenticationService } from "./authentication";
 
-const authHeader = {
-    Authorization: "Bearer " + authenticationService.currentUserValue
-  }
-
 const options = {
   withCredentials: true
 }

@@ -18,7 +18,6 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import { mainListItems, adminListItems, logoutItem } from "./listItems";
-import { authenticationService } from "../../handlers/authentication";
 
 function Copyright() {
   return (
