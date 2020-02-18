@@ -31,7 +31,6 @@ export default function FormDialog() {
 
   const handleSubmit = async e => {
     try {
-      console.log("Changing password");
       e.preventDefault();
       const params = { password, passwordConf };
       await userHandler.changePassword(params);
@@ -43,14 +42,14 @@ export default function FormDialog() {
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        change password
+       Cambiar password 
       </Button>
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Change password</DialogTitle>
+        <DialogTitle id="form-dialog-title">Cambiar password</DialogTitle>
         <DialogContent>
           <form onSubmit={handleSubmit}>
             <TextField
@@ -77,15 +76,15 @@ export default function FormDialog() {
               onChange={handlePasswordConfChange}
               value={passwordConf}
             />
-            <Button color='Primary' type="submit">Change Password</Button>
+            <Button color='Primary' type="submit">Cambiar Password</Button>
           </form>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Cancel
+            Cancelar
           </Button>
           <Button onClick={handleClose} color="primary">
-            Confirm Change
+            Confirmar
           </Button>
         </DialogActions>
       </Dialog>

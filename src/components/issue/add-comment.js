@@ -28,7 +28,7 @@ export default function BugAddComment(props) {
     <form onSubmit={submitHandler} className={classes.container} >
       <TextField
         id="outlined-textarea"
-        label="New Comment"
+        label="Escribir comentario..."
         multiline
         className={classes.textField}
         margin="normal"
@@ -37,7 +37,7 @@ export default function BugAddComment(props) {
         onChange={changeTextHandler}
       /> <br/>
       <Button color="primary" variant="contained" type="submit">
-        Post Comment
+       Enviar comentario 
       </Button>
     </form>
   );

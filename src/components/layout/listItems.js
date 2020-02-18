@@ -14,17 +14,17 @@ import { userHandler } from "../../handlers/users";
 
 const mainList = [
   {
-    name: "Home",
+    name: "Dashboard",
     path: "",
     icon: <DashboardIcon />
   },
   {
-    name: "Issues Log",
+    name: "Lista de Issues",
     path: "issue-log",
     icon: <ListAltIcon />
   },
   {
-    name: "Report Issue",
+    name: "Reportar Issue",
     path: "report-issue",
     icon: <BarChartIcon />
   }
@@ -32,7 +32,7 @@ const mainList = [
 
 const adminList = [
   {
-    name: "Users",
+    name: "Editar Usuario",
     path: "list",
     icon: <PeopleIcon />
   }
@@ -71,7 +71,7 @@ export function mainListItems(absPath='/user') {
 export function adminListItems(absPath='/user') {
   return (
     <div>
-      <ListSubheader inset>Admin Panel</ListSubheader>
+      <ListSubheader inset>Panel de Administrador</ListSubheader>
       {adminList.map((item, idx) => MaterialIconsList(item, idx, absPath))}
     </div>
   );
@@ -83,7 +83,7 @@ export const logoutItem = (
       <ListItemIcon>
         <ExitToAppIcon />
       </ListItemIcon>
-      <ListItemText primary="Logout" />
+      <ListItemText primary="Salir" />
     </ListItem>
   </div>
 );

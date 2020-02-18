@@ -9,10 +9,10 @@ export default function MaterialTableDemo() {
   ]);
 
   const cols = [
-    {title: 'User Name', field: 'username'},
+    {title: 'Nombre de usuario', field: 'username'},
     {title: 'E-mail', field: 'email'},
     {
-      title: 'Role',
+      title: 'Rol',
       field: 'role',
       lookup: {0: 'Administrator', 1: 'User', 2: 'Developer', 99: ' '},
     },
@@ -61,7 +61,7 @@ export default function MaterialTableDemo() {
   return (
     <Layout section="[ADMIN ONLY]: Editar usuarios">
       <MaterialTable
-        title="User Edit Panel"
+        title="Editar usuario"
         columns={cols}
         data={userData}
         editable={{

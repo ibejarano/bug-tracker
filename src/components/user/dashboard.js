@@ -123,9 +123,9 @@ export default function UserHome(props) {
               <LoadingCicle />
             ) : (
               <div>
-                <Typography>User info</Typography>
-                <Typography>Username: {user.username}</Typography>
-                <Typography>Email: {user.email}</Typography>
+                <Typography>Informacion del usuario</Typography>
+                <Typography>Nombre de usuario: {user.username}</Typography>
+                <Typography>E-mail: {user.email}</Typography>
               </div>
             )}
             {/* Change pass button */}
@@ -136,7 +136,7 @@ export default function UserHome(props) {
 
         <Grid item xs={12} md={8} lg={9}>
           <Paper className={fixedHeightPaper}>
-            <h2>Last activity</h2>
+            <h2>Actividad</h2>
             {user.username === '' ? (
               <LoadingCicle />
             ) : (

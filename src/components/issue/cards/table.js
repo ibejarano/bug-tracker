@@ -82,7 +82,7 @@ export default function IssueTable({
                 </TableCell>
                 {isAdmin && (
                   <TableCell align="right">
-                    <Link to={`/user/issue-edit?id=${issue._id}`}>Edit</Link>
+                    <Link to={`/user/issue-edit?id=${issue._id}`}>Editar</Link>
                   </TableCell>
                 )}
                 {isAdmin && (
@@ -91,7 +91,7 @@ export default function IssueTable({
                       onClick={() => {
                         deleteIssue(issue._id);
                       }}>
-                      Delete
+                     Eliminar 
                     </button>
                   </TableCell>
                 )}
