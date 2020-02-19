@@ -60,8 +60,8 @@ async function update(id, params) {
 
 async function deleteById(id){
     try {
-        const res = await axios.delete(`http://localhost:5000/bugs/${id}`, options);
-        return res
+        const {data} = await axios.delete(`http://localhost:5000/bugs/${id}`, options);
+        return data
     } catch (err) {
         console.log('Bug id not found!', err)
         return err

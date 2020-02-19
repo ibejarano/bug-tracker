@@ -8,12 +8,15 @@ export default function IssueList(props) {
   const [issues, setIssues] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const deleteIssue = id => {
-    issuesHandler
-      .deleteById(id)
-      .then(res => console.log(res))
-      .catch(err => console.log('Error ocurred!', err))
-      .finally(() => setIssues([]));
+  const deleteIssue = async id => {
+    try {
+      const deleteResponse = await issuesHandler.deleteById(id);
+      const { issues } = await issuesHandler.getAll();
+      setIssues(issues);
+      console.log(deleteResponse);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
