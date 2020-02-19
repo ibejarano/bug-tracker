@@ -27,6 +27,7 @@ export default function IssueTable({
   isAdmin,
   deleteIssue,
   showAssignee = true,
+  loading
 }) {
   const classes = useStyles();
   return (

@@ -102,9 +102,8 @@ export default function UserHome(props) {
 
   useEffect(() => {
     async function fetchData() {
-      console.log('fetching user info')
+      console.log('fetching user info');
       const res = await userHandler.getUserInfo();
-      console.log('this is the info!')
       console.log(res);
       const {user, issues} = res;
       setIssues(issues);
@@ -116,7 +115,6 @@ export default function UserHome(props) {
   return (
     <Layout section="Dashboard" isAdmin={user.isAdmin}>
       <Grid container spacing={3}>
-        {/* Recent Deposits */}
         <Grid item xs={12} md={4} lg={3}>
           <Paper className={fixedHeightPaper}>
             {user.username === '' ? (
@@ -128,11 +126,9 @@ export default function UserHome(props) {
                 <Typography>E-mail: {user.email}</Typography>
               </div>
             )}
-            {/* Change pass button */}
             <ChangePasswordDialog />
           </Paper>
         </Grid>
-        {/* Chart */}
 
         <Grid item xs={12} md={8} lg={9}>
           <Paper className={fixedHeightPaper}>
@@ -148,9 +144,18 @@ export default function UserHome(props) {
             )}
           </Paper>
         </Grid>
-        {/* Recent Orders */}
         <Grid item xs={12}>
-          <IssueList issues={issues} showAssignee={false} />
+          {user.username && issues.length === 0 ? (
+            <Paper>
+              <h2> No tenes ningun Issue asignado </h2>
+            </Paper>
+          ) : (
+            <IssueList
+              loading={user.username ? true : false}
+              issues={issues}
+              showAssignee={false}
+            />
+          )}
         </Grid>
       </Grid>
     </Layout>
