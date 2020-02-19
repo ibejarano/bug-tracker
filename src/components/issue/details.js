@@ -16,7 +16,7 @@ export default function IssueDetails(props) {
       setCommentsCards(
         <IssueCommentCard
           comments={res.issue.comments}
-          assignee={res.issue.assignee.username}
+          assignee={res.issue.assignee ? res.issue.assignee.username : null}
         />,
       );
     }
@@ -38,8 +38,24 @@ export default function IssueDetails(props) {
   };
 
   useEffect(() => {
-    getIssueComments();
-  }, []);
+    async function getIssueDetails() {
+      const res = await issuesHandler.getById(id);
+      console.log('Received issue info', res);
+      setIssue(res.issue);
+      setIsAdmin(res.user.role === 0 ? true : false);
+      if (res.issue.comments.length) {
+        setCommentsCards(
+          <IssueCommentCard
+            comments={res.issue.comments}
+            assignee={res.issue.assignee ? res.issue.assignee.username : null}
+          />,
+        );
+      }
+    }
+    if(!issue){
+    getIssueDetails();
+    }
+  });
 
   return (
     <Layout
@@ -53,8 +69,7 @@ export default function IssueDetails(props) {
           'Cargando...'
         )
       }
-   isAdmin={isAdmin} 
-    >
+      isAdmin={isAdmin}>
       {commentsCards}
       <IssueAddComment addNewComment={addNewComment} />
     </Layout>
