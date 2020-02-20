@@ -22,7 +22,7 @@ async function login(email, password) {
   }
     const params = { email, password }
   console.log('sending for response')
-    const res = await axios.post('http://localhost:5000/login', params, config).catch(err => console.log('Some error!', err));
+  const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/login`, params, config).catch(err => console.log('Some error!', err));
 
   return res.data.userAuth
 }

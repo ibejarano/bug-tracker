@@ -1,9 +1,11 @@
-import axios from "axios";
-import { authenticationService } from "./authentication";
+import axios from 'axios';
+import {authenticationService} from './authentication';
 
 const options = {
-  withCredentials: true
-}
+  withCredentials: true,
+};
+
+const serverUrl = process.env.REACT_APP_SERVER_URL;
 
 export const userHandler = {
   getUserInfo,
@@ -12,71 +14,60 @@ export const userHandler = {
   logout,
   update,
   changePassword,
-  getUsernameById
+  getUsernameById,
 };
 
 async function getUserInfo() {
   try {
-    console.log('getting all the info!')
-    let res = await axios.get("http://localhost:5000/user/info", options);
-    console.log(res)
+    console.log('getting all the info!');
+    let res = await axios.get(serverUrl + '/user/info', options);
+    console.log(res);
     return res.data;
   } catch (error) {
-    console.log("Error ocurred get user info.", error.toString());
-    window.location = "/";
+    console.log('Error ocurred get user info.', error.toString());
+    window.location = '/';
     return error;
   }
 }
 
 async function getAllUsers() {
   try {
-    const res = await axios.get("http://localhost:5000/user/", options);
+    const res = await axios.get(serverUrl + '/user/', options);
     return res.data;
   } catch (err) {
-    console.log("Users not found!", err);
+    console.log('Users not found!', err);
     return err;
   }
 }
 
 async function deleteById(id) {
   try {
-    const res = await axios.delete(
-      `http://localhost:5000/user/${id}`,
-      options
-    );
+    const res = await axios.delete(`${serverUrl}/user/${id}`, options);
     return res;
   } catch (err) {
-    console.log("User not found!", err);
+    console.log('User not found!', err);
     return err;
   }
 }
 
 async function logout() {
   try {
-    const params = { token: "" };
-    const res = await axios.put(
-      "http://localhost:5000/user/logout/",
-      params,
-      options
-    );
+    const params = {token: ''};
+    const res = await axios.put(serverUrl + '/user/logout/', params, options);
     if (res.status === 200) {
       authenticationService.removeSession();
     } else {
-      throw new Error("Error during logout!");
+      throw new Error('Error during logout!');
     }
   } catch (error) {
-    console.log("User not found!", error);
+    console.log('User not found!', error);
     return error;
   }
 }
 
 async function update(id, params) {
   try {
-    const res = await axios.put(
-      `http://localhost:5000/user/${id}`,
-      params,
-      options
-    );
+    const res = await axios.put(`${serverUrl}/user/${id}`, params, options);
     console.log(res);
     return res;
   } catch (error) {
@@ -88,9 +79,9 @@ async function update(id, params) {
 async function changePassword(params) {
   try {
     const res = await axios.put(
-      `http://localhost:5000/user/change-password`,
+      `${serverUrl}/user/change-password`,
       params,
-      options
+      options,
     );
     return res;
   } catch (error) {
@@ -101,13 +92,10 @@ async function changePassword(params) {
 
 async function getUsernameById(id) {
   try {
-    const res = await axios.get(
-      `http://localhost:5000/user/username/${id}`,
-      options
-    );
+    const res = await axios.get(`${serverUrl}/user/username/${id}`, options);
     return res;
   } catch (err) {
-    console.log("User not found!", err);
+    console.log('User not found!', err);
     return err;
   }
 }
