@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {useLocation} from 'react-router-dom'
 
 import {issuesHandler} from '../handlers/issues';
 import IssueInfoCard from './issue/cards/bug-info-card';
@@ -24,7 +25,8 @@ export default function IssueDetails(props) {
   const [issue, setIssue] = useState(null);
   const [commentsCards, setCommentsCards] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
-  const id = props.location.search.split('=')[1]; //TODO ADD Error handling if query doesnt exist
+  const location = useLocation()
+  const id = location.search.split('=')[1]; //TODO ADD Error handling if query doesnt exist
 
   const addNewComment = async function(text) {
     const params = {text};

@@ -4,8 +4,6 @@ import {makeStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Box from '@material-ui/core/Box';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -14,9 +12,6 @@ import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import InstagramIcon from '@material-ui/icons/Instagram';
 import {mainListItems, adminListItems, logoutItem} from './layout/listItems';
 
 function Copyright() {
@@ -111,16 +106,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Layout(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  const {section, isAdmin} = props;
-
+  const {open, handleClick, isAdmin} = props;
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -134,14 +120,14 @@ export default function Layout(props) {
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
+            onClick={handleClick}
             className={clsx(open && classes.menuButtonHidden)}>
             <MenuIcon />
           </IconButton>
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerClose}
+            onClick={handleClick}
             className={clsx(!open && classes.menuButtonHidden)}>
             <ChevronLeftIcon />
           </IconButton>

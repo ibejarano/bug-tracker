@@ -8,7 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
-import ComponentBar from './componentbar'
 import IssueList from './issue/cards/table';
 import LoadingCicle from './loading';
 import ChangePasswordDialog from './user/change-password';

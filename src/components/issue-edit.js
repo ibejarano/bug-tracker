@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {useLocation} from "react-router-dom"
 import { issuesHandler } from "../handlers/issues";
 import { userHandler } from "../handlers/users";
 
@@ -62,7 +63,8 @@ export default function EditIssue(props) {
   const [status, setStatus] = useState("");
   const [assignees, setAsignees] = useState([""]);
   const [assignee, setAssignee] = useState("");
-  const id = props.location.search.split("=")[1];
+  const location = useLocation();
+  const id = location.search.split("=")[1];
 
   const handleIssueChange = e => {
     setIssueType(e.target.value);
