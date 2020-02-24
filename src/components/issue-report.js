@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {issuesHandler} from '../../handlers/issues';
+import {issuesHandler} from '../handlers/issues';
 
 import {makeStyles} from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -13,7 +13,6 @@ import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-import Layout from '../layout/main-layout';
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -105,7 +104,6 @@ export default function ReportBugForm(props) {
   );
 
   return (
-    <Layout section="Reportar nuevo Issue">
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
@@ -170,6 +168,5 @@ export default function ReportBugForm(props) {
           </form>
         </div>
       </Container>
-    </Layout>
   );
 }

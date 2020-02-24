@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {issuesHandler} from '../../handlers/issues';
+import {issuesHandler} from '../handlers/issues';
 
-import IssueTable from './cards/table';
-import Layout from '../layout/main-layout';
+import IssueTable from './issue/cards/table';
 
 export default function IssueList(props) {
   const [issues, setIssues] = useState([]);
@@ -30,8 +29,6 @@ export default function IssueList(props) {
   }, []);
 
   return (
-    <Layout section="Lista de Issues" isAdmin={isAdmin}>
       <IssueTable issues={issues} isAdmin={isAdmin} deleteIssue={deleteIssue} />
-    </Layout>
   );
 }

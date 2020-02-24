@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
 
-import {issuesHandler} from '../../handlers/issues';
-import IssueInfoCard from './cards/bug-info-card';
-import IssueCommentCard from './cards/bug-comment-card';
-import IssueAddComment from './add-comment';
-import Layout from '../layout/main-layout';
+import {issuesHandler} from '../handlers/issues';
+import IssueInfoCard from './issue/cards/bug-info-card';
+import IssueCommentCard from './issue/cards/bug-comment-card';
+import IssueAddComment from './issue/add-comment';
 
 export default function IssueDetails(props) {
   async function getIssueComments() {
@@ -58,7 +57,7 @@ export default function IssueDetails(props) {
   });
 
   return (
-    <Layout
+    <div
       section={
         issue ? (
           <IssueInfoCard
@@ -72,6 +71,6 @@ export default function IssueDetails(props) {
       isAdmin={isAdmin}>
       {commentsCards}
       <IssueAddComment addNewComment={addNewComment} />
-    </Layout>
+    </div>
   );
 }
