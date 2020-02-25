@@ -11,32 +11,36 @@ import Sidebar from '../components/sidebar';
 import Componentbar from '../components/componentbar';
 
 export default function Home(props) {
-  const {match} = props;
+  const match = {
+    path: '/user'
+  };
   const [open, setOpen] = React.useState(false);
 
   const toggleOpen = () => {
     setOpen(prev => !prev);
   };
 
+  const {isAdmin} = props.user
+
   return (
     <Switch>
       <Route exact path={`${match.path}`}>
-        <RouteWrapper section="Inicio" open={open} handler={toggleOpen}>
+        <RouteWrapper section="Inicio" open={open} handler={toggleOpen} isAdmin={isAdmin}>
           <Dashboard />
         </RouteWrapper>
       </Route>
       <Route path={`${match.path}/issue`} >
-        <RouteWrapper section="Issue Details" open={open} handler={toggleOpen}>
-          <IssueDetails />
+        <RouteWrapper section="Issue Details" open={open} handler={toggleOpen} isAdmin={isAdmin}>
+          <IssueDetails isAdmin={isAdmin}/>
         </RouteWrapper>
       </Route>
       <Route exact path={`${match.path}/issue-log`}>
-        <RouteWrapper section="Lista de Issues" open={open} handler={toggleOpen}>
-          <IssueLog />
+        <RouteWrapper section="Lista de Issues" open={open} handler={toggleOpen} isAdmin={isAdmin}>
+          <IssueLog isAdmin={isAdmin}/>
         </RouteWrapper>
       </Route>
       <Route exact path={`${match.path}/list`}>
-        <RouteWrapper section="Lista de usuarios" open={open} handler={toggleOpen}>
+        <RouteWrapper section="Lista de usuarios" open={open} handler={toggleOpen} isAdmin={isAdmin}>
           <UserList />
         </RouteWrapper>
       </Route>
@@ -44,12 +48,12 @@ export default function Home(props) {
         exact
         path={`${match.path}/report-issue`}
       >
-        <RouteWrapper section="Reportar nuevo Issue" open={open} handler={toggleOpen}>
+        <RouteWrapper section="Reportar nuevo Issue" open={open} handler={toggleOpen} isAdmin={isAdmin}>
           <ReportIssue />
         </RouteWrapper>
       </Route>
       <Route path={`${match.path}/issue-edit`}>
-        <RouteWrapper section="Reportar nuevo Issue" open={open} handler={toggleOpen}>
+        <RouteWrapper section="Reportar nuevo Issue" open={open} handler={toggleOpen} isAdmin={isAdmin}>
           <EditIssue />
         </RouteWrapper>
       </Route>
@@ -57,9 +61,9 @@ export default function Home(props) {
   );
 }
 
-function RouteWrapper({children, section, open, handler}) {
+function RouteWrapper({children, section, open, handler, isAdmin}) {
   return (
-    <Sidebar handleClick={handler} open={open}>
+    <Sidebar handleClick={handler} open={open} isAdmin={isAdmin}>
       <Componentbar section={section} open={open} />
       {children}
     </Sidebar>

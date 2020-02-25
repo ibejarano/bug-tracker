@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import {history} from './helpers/history';
 import {Router, Route, Switch} from 'react-router-dom';
@@ -7,17 +7,20 @@ import {Router, Route, Switch} from 'react-router-dom';
 import UserRegisterForm from './views/register';
 import Login from './views/login';
 import HomePage from './views/home';
-import GetCookie from './views/cookie';
 
 export default function App() {
+  const [user, setUser] = useState({isAdmin: false});
   return (
     <div>
       <Router history={history}>
         <Switch>
-          <Route exact path="/" component={Login} />
-          <Route exact path="/cookie" component={GetCookie} />
+          <Route exact path="/">
+            <Login setUser={setUser} />
+          </Route>
           <Route exact path="/signup" component={UserRegisterForm} />
-          <Route path="/user" component={HomePage} />
+          <Route path="/user">
+            <HomePage user={user} />
+          </Route>
         </Switch>
       </Router>
     </div>

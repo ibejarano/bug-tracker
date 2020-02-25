@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import clsx from 'clsx';
 import {makeStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,6 +13,7 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import {mainListItems, adminListItems, logoutItem} from './layout/listItems';
+import {userHandler} from '../handlers/users';
 
 function Copyright() {
   return (
@@ -104,9 +105,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Layout(props) {
+export default function Sidebar(props) {
   const classes = useStyles();
-  const {open, handleClick, isAdmin} = props;
+  const {open, handleClick} = props;
+  const {isAdmin} = props;
+  console.log(props)
+
   return (
     <div className={classes.root}>
       <CssBaseline />

@@ -88,7 +88,6 @@ export default function EditIssue(props) {
 
   const onSubmit = async function(e) {
     e.preventDefault();
-    console.log("Editing bug #", id);
     const params = {
       priority,
       type: issueType,

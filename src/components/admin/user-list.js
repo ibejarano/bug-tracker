@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import MaterialTable from 'material-table';
 import {userHandler} from '../../handlers/users';
-import Layout from '../layout/main-layout';
 
 export default function MaterialTableDemo() {
   const [userData, setUserData] = React.useState([
@@ -59,7 +58,6 @@ export default function MaterialTableDemo() {
   }, [loadingUsers]);
 
   return (
-    <Layout section="[ADMIN ONLY]: Editar usuarios">
       <MaterialTable
         title="Editar usuario"
         columns={cols}
@@ -69,6 +67,5 @@ export default function MaterialTableDemo() {
           onRowDelete: handleDelete,
         }}
       />
-    </Layout>
   );
 }

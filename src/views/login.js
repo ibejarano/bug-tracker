@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {useHistory} from 'react-router-dom'
 import { authenticationService } from "../handlers/authentication";
 
 // Material ui components
@@ -49,6 +50,7 @@ export default function LoginPage(props) {
   const [password, setPassword] = useState("");
   const [badLogin, setBadLogin] = useState(false);
   const classes = useStyles();
+  const history = useHistory();
   const handleEmail = e => {
     setEmail(e.target.value);
   };
@@ -61,17 +63,17 @@ export default function LoginPage(props) {
     e.preventDefault();
     const params = { email, password };
     try {
-      await authenticationService.login(
+      const user = await authenticationService.login(
         params.email,
         params.password
       );
-      //props.updateLogin();
-      window.location = '/user'
+      props.setUser(user)
+      history.push('/user')
     } catch (error) {
       console.log(error.toString());
       setPassword("");
       setBadLogin(true)
-      props.history.push("/");
+      history.push("/");
     }
   };
 
