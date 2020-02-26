@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 
 import {issuesHandler} from '../handlers/issues';
+import {issueTypes, priorities, statusTypes} from '../helpers/issueOptions'
 
 import {makeStyles} from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -93,13 +94,13 @@ export default function ReportBugForm(props) {
     }
   };
 
-  const issueTypeOptions = ['Bug', 'Tarea', 'Mejora', 'Propuesta'].map(
+  const issueTypeOptions = issueTypes.map(
     createOptionTags,
   );
-  const priorityOptions = ['Baja', 'Media', 'Alta', 'Urgente!'].map(
+  const priorityOptions = priorities.map(
     createOptionTags,
   );
-  const statusOptions = ['Nuevo', 'Abierto', 'Cerrado', 'Pausado'].map(
+  const statusOptions = statusTypes.map(
     createOptionTags,
   );
 
