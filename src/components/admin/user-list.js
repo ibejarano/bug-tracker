@@ -37,7 +37,6 @@ export default function MaterialTableDemo() {
       setLoadingUsers(true);
     } catch (error) {
       console.log('Error during user delete!');
-      console.log(error.toString());
     }
   };
 
@@ -51,7 +50,6 @@ export default function MaterialTableDemo() {
           setLoadingUsers(false);
         })
         .catch(error => {
-          console.log(error.toString());
           window.location = '/user';
         });
     }
