@@ -7,6 +7,7 @@ export const issuesHandler = {
   update,
   deleteById,
   addComment,
+  getArchived
 };
 
 const options = {
@@ -19,6 +20,17 @@ async function getAll() {
   try {
     const res = await axios.get(serverUrl+'/bugs', options);
     console.log('All the data is here:', res.data);
+    return res.data;
+  } catch (err) {
+    window.location = '/';
+    return err;
+  }
+}
+
+async function getArchived() {
+  try {
+    const res = await axios.get(serverUrl+'/bugs/archive', options);
+    console.log('archived', res.data)
     return res.data;
   } catch (err) {
     window.location = '/';

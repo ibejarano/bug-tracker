@@ -3,6 +3,7 @@ import {Route, Switch} from 'react-router-dom';
 
 import IssueLog from '../components/issue-log';
 import IssueDetails from '../components/issue-details';
+import IssueArchive from '../components/issue-archive';
 import ReportIssue from '../components/issue-report';
 import EditIssue from '../components/issue-edit';
 import UserList from '../components/admin/user-list';
@@ -37,6 +38,11 @@ export default function Home(props) {
       <Route exact path={`${match.path}/issue-log`}>
         <RouteWrapper section="Lista de Issues" open={open} handler={toggleOpen} isAdmin={isAdmin}>
           <IssueLog isAdmin={isAdmin}/>
+        </RouteWrapper>
+      </Route>
+      <Route exact path={`${match.path}/issue-archive`}>
+        <RouteWrapper section="Issues Archivados" open={open} handler={toggleOpen} isAdmin={isAdmin}>
+          <IssueArchive isAdmin={isAdmin}/>
         </RouteWrapper>
       </Route>
       <Route exact path={`${match.path}/list`}>

@@ -3,11 +3,6 @@ import {Link} from 'react-router-dom';
 import {issuesHandler} from '../handlers/issues';
 import MaterialTable from 'material-table';
 import {getIsoDate} from '../helpers/formatDate';
-import {
-  issueTypesMap,
-  prioritiesMap,
-  statusTypesMap,
-} from '../helpers/issueOptions';
 
 const issueCols = [
   {
@@ -17,10 +12,10 @@ const issueCols = [
       <Link to={`/user/issue?q=${rowData._id}`}>{rowData.title}</Link>
     ),
   },
-  {title: 'Estado', field: 'status', lookup: statusTypesMap},
-  {title: 'Tipo', field: 'type', lookup: issueTypesMap},
+  {title: 'Estado', field: 'status'},
+  {title: 'Tipo', field: 'type'},
   {title: 'Responsable', field: 'assignee.username'},
-  {title: 'Prioridad', field: 'priority', lookup: prioritiesMap},
+  {title: 'Prioridad', field: 'priority'},
   {
     title: 'Creado',
     field: 'createdAt',
@@ -47,23 +42,11 @@ export default function IssueList(props) {
   const [loading, setLoading] = useState(true);
   const {isAdmin} = props;
 
-  const handleArchive = async (e,issueRow) => {
+  const handleDelete = async issueRow => {
     try {
-      const newData = {...issueRow , status: 'Cerrado'}
-      console.log('data de handlearchive', newData)
-      await issuesHandler.update(issueRow._id, newData );
-      const {issues} = await issuesHandler.getAll();
-      setIssues(issues);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleUpdate = async (newData, oldData) => {
-    try {
-      const id = oldData._id;
-      await issuesHandler.update(id, newData);
-      setLoading(true);
+      await issuesHandler.deleteById(issueRow._id);
+      const data = await issuesHandler.getArchived();
+      setIssues(data.issues);
     } catch (err) {
       console.log(err);
     }
@@ -73,7 +56,7 @@ export default function IssueList(props) {
     if (loading) {
       try {
         async function fetchData() {
-          const data = await issuesHandler.getAll();
+          const data = await issuesHandler.getArchived();
           setIssues(data.issues)
           setLoading(false)
         }
@@ -93,17 +76,10 @@ export default function IssueList(props) {
       editable={
         isAdmin
           ? {
-              onRowUpdate: handleUpdate,
+              onRowDelete: handleDelete,
             }
           : {}
       }
-    actions={[
-      {
-        icon: 'save',
-        tooltip: 'Archivar Issue',
-        onClick: handleArchive 
-      }
-    ]}
       localization={{
         header: {
           actions: 'Acciones',
