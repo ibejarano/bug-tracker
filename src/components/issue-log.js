@@ -99,7 +99,7 @@ export default function IssueList(props) {
       }
     actions={[
       {
-        icon: 'save',
+        icon: 'archive',
         tooltip: 'Archivar Issue',
         onClick: handleArchive 
       }
